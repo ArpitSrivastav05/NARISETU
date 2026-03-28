@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════
+   NariSetu — Design Tokens & Global Styles
+   ══════════════════════════════════════════════════════ */
+
+@theme {
+  --color-navy-50: #eef2ff;
+  --color-navy-100: #d9e2fc;
+  --color-navy-200: #b3c5f9;
+  --color-navy-300: #7da0f0;
+  --color-navy-400: #4a78e4;
+  --color-navy-500: #1e3a8a;
+  --color-navy-600: #1a327a;
+  --color-navy-700: #152868;
+  --color-navy-800: #101e56;
+  --color-navy-900: #0b1544;
+  --color-navy-950: #060d2e;
+
+  --color-saffron-400: #fb923c;
+  --color-saffron-500: #f97316;
+
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+
+  --color-surface: #ffffff;
+  --color-surface-dim: #f8fafc;
+  --color-surface-bright: #f1f5f9;
+
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Google Font import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-dim);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-300);
+  border-radius: 999px;
+}
+
+/* Focus ring utility */
+*:focus-visible {
+  outline: 2px solid var(--color-navy-400);
+  outline-offset: 2px;
+}
+
+/* Pulse animation for loading spinner */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
