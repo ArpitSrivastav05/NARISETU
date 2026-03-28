@@ -1,0 +1,145 @@
+﻿{
+    "success":  true,
+    "user":  "Ananya Verma",
+    "total_schemes_evaluated":  5,
+    "passed_strict_filters":  5,
+    "dropped_by_strict_filters":  0,
+    "matches_found":  5,
+    "results_returned":  5,
+    "top_matches":  [
+                        {
+                            "scheme_id":  "SCH_MSSC_005",
+                            "scheme_name":  "Mahila Samman Savings Certificate",
+                            "description":  "A one-time small savings scheme exclusively for women and girls. Offers a fixed interest rate of 7.5% per annum on deposits up to ₹2 lakh, with a maturity period of 2 years. Partial withdrawal facility available after 1 year.",
+                            "ministry":  "Ministry of Finance",
+                            "match_score":  100,
+                            "matched_criteria":  [
+                                                     "age",
+                                                     "caste_category",
+                                                     "employment_type",
+                                                     "business_category",
+                                                     "education_level",
+                                                     "marital_status",
+                                                     "disability_status",
+                                                     "residence_type"
+                                                 ],
+                            "unmatched_criteria":  [
+
+                                                   ],
+                            "benefits":  {
+                                             "type":  "savings_scheme",
+                                             "amount":  200000,
+                                             "frequency":  "2_year_maturity",
+                                             "currency":  "INR"
+                                         },
+                            "scheme_url":  "https://www.india.gov.in/mahila-samman-savings-certificate"
+                        },
+                        {
+                            "scheme_id":  "SCH_MUDRA_002",
+                            "scheme_name":  "Pradhan Mantri Mudra Yojana (PMMY)",
+                            "description":  "Provides micro-loans up to ₹10 lakh to non-corporate, non-farm small/micro enterprises. Loans are offered under three categories: Shishu (up to ₹50,000), Kishore (₹50,001 to ₹5 lakh), and Tarun (₹5 lakh to ₹10 lakh). Encourages entrepreneurship among women and SC/ST communities.",
+                            "ministry":  "Ministry of Finance",
+                            "match_score":  100,
+                            "matched_criteria":  [
+                                                     "age",
+                                                     "caste_category",
+                                                     "employment_type",
+                                                     "business_category",
+                                                     "education_level",
+                                                     "marital_status",
+                                                     "disability_status",
+                                                     "residence_type"
+                                                 ],
+                            "unmatched_criteria":  [
+
+                                                   ],
+                            "benefits":  {
+                                             "type":  "loan",
+                                             "amount":  1000000,
+                                             "frequency":  "one_time",
+                                             "currency":  "INR"
+                                         },
+                            "scheme_url":  "https://www.mudra.org.in"
+                        },
+                        {
+                            "scheme_id":  "SCH_PMKVY_004",
+                            "scheme_name":  "Pradhan Mantri Kaushal Vikas Yojana (PMKVY 4.0)",
+                            "description":  "India\u0027s largest skill certification scheme. Provides free short-term skill training and certification to youth, with a focus on industry-relevant skills. Trainees receive a government certificate and placement assistance upon course completion.",
+                            "ministry":  "Ministry of Skill Development \u0026 Entrepreneurship",
+                            "match_score":  100,
+                            "matched_criteria":  [
+                                                     "age",
+                                                     "caste_category",
+                                                     "employment_type",
+                                                     "business_category",
+                                                     "education_level",
+                                                     "marital_status",
+                                                     "disability_status",
+                                                     "residence_type"
+                                                 ],
+                            "unmatched_criteria":  [
+
+                                                   ],
+                            "benefits":  {
+                                             "type":  "training_and_certification",
+                                             "amount":  8000,
+                                             "frequency":  "per_course",
+                                             "currency":  "INR"
+                                         },
+                            "scheme_url":  "https://pmkvyofficial.org"
+                        },
+                        {
+                            "scheme_id":  "SCH_UP_SHAKTI_003",
+                            "scheme_name":  "Mission Shakti — Uttar Pradesh Women Empowerment",
+                            "description":  "A flagship scheme of the Uttar Pradesh government that provides financial assistance, skill training, and self-employment opportunities to women across the state. Includes grants for setting up Self Help Groups (SHGs) and micro-enterprises in handloom, handicraft, and food processing sectors.",
+                            "ministry":  "UP Department of Women \u0026 Child Development",
+                            "match_score":  100,
+                            "matched_criteria":  [
+                                                     "age",
+                                                     "caste_category",
+                                                     "employment_type",
+                                                     "business_category",
+                                                     "education_level",
+                                                     "marital_status",
+                                                     "disability_status",
+                                                     "residence_type"
+                                                 ],
+                            "unmatched_criteria":  [
+
+                                                   ],
+                            "benefits":  {
+                                             "type":  "grant_and_training",
+                                             "amount":  50000,
+                                             "frequency":  "one_time",
+                                             "currency":  "INR"
+                                         },
+                            "scheme_url":  "https://missionshakti.up.gov.in"
+                        },
+                        {
+                            "scheme_id":  "SCH_PM_KISAN_001",
+                            "scheme_name":  "PM-KISAN Samman Nidhi",
+                            "description":  "Provides income support of ₹6,000 per year in three equal installments to small and marginal farmer families with cultivable landholding. Aims to supplement financial needs for procuring inputs related to agriculture and allied activities.",
+                            "ministry":  "Ministry of Agriculture \u0026 Farmers Welfare",
+                            "match_score":  85,
+                            "matched_criteria":  [
+                                                     "age",
+                                                     "caste_category",
+                                                     "employment_type",
+                                                     "education_level",
+                                                     "marital_status",
+                                                     "disability_status",
+                                                     "residence_type"
+                                                 ],
+                            "unmatched_criteria":  [
+                                                       "business_category"
+                                                   ],
+                            "benefits":  {
+                                             "type":  "cash_transfer",
+                                             "amount":  6000,
+                                             "frequency":  "annual",
+                                             "currency":  "INR"
+                                         },
+                            "scheme_url":  "https://pmkisan.gov.in"
+                        }
+                    ]
+}
