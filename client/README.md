@@ -1,16 +1,43 @@
-# React + Vite
+# NariSetu MVP
+Empowering women micro‑entrepreneurs with accessible digital tools.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🌐 Overview
+NariSetu is a platform designed to help women micro‑entrepreneurs showcase, manage, and grow their businesses using simple, scalable digital tools.  
+Built with **React + Vite** and **Firebase**, it focuses on accessibility, security, and modular workflows.
 
-Currently, two official plugins are available:
+## ✨ Features
+- ⚡ Fast development with React + Vite
+- 🔥 Hot Module Replacement (HMR) for rapid iteration
+- ☁️ Firebase integration (Firestore, Auth)
+- 🔒 Secure repo structure with `.gitignore` for secrets
+- 📦 Modular codebase (controllers, middleware, routes)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Installation
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/ArpitSrivastav05/NARISETU.git
+cd NARISETU
+npm install
+npm run dev
+```
+🔧 Configuration
+Create a .env file in the project root with your Firebase credentials:
+```bash
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+```
 
-## React Compiler
+⚠️ Important: Never commit serviceAccountKey.json. Keep it local or use environment variables for deployment.
+📖 Usage
+Run the development server:
+```bash
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Open http://localhost:5173 (localhost in Bing) in your browser to view the app.
+🤝 Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you’d like to change.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
