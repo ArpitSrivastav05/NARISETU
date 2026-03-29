@@ -43,11 +43,7 @@ const STATES = [
   { value: "lakshadweep", label: "Lakshadweep" },
 ];
 
-const GENDERS = [
-  { value: "female", label: "Female" },
-  { value: "male", label: "Male" },
-  { value: "other", label: "Other" },
-];
+
 
 const CASTES = [
   { value: "general", label: "General" },
@@ -125,7 +121,6 @@ export default function SchemeForm({ onSubmit, isLoading }) {
     age: "",
     annual_income: "",
     state: "",
-    gender: "",
     caste_category: "",
     employment_type: "",
     education_level: "",
@@ -148,12 +143,13 @@ export default function SchemeForm({ onSubmit, isLoading }) {
     e.preventDefault();
 
     // Build the payload matching the backend schema
+    // Gender is hardcoded to "female" — NariSetu is a women-only platform
     const payload = {
       name: form.name.trim() || "Anonymous User",
       age: parseInt(form.age, 10),
       annual_income: parseFloat(form.annual_income),
       state: form.state,
-      gender: form.gender,
+      gender: "female",
       caste_category: form.caste_category,
       employment_type: form.employment_type,
       education_level: form.education_level,
@@ -218,6 +214,13 @@ export default function SchemeForm({ onSubmit, isLoading }) {
         <p className="mt-1.5 text-sm text-navy-400">
           Fill in your details to discover government schemes tailored for you
         </p>
+        {/* Women-only platform badge */}
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-pink-50 px-4 py-1.5 ring-1 ring-pink-200/60">
+          <span className="text-sm">👩</span>
+          <span className="text-xs font-semibold text-pink-600">
+            This platform is exclusively for women &amp; girls
+          </span>
+        </div>
       </div>
 
       {/* ── Personal Details Section ─────────────────── */}
@@ -254,15 +257,6 @@ export default function SchemeForm({ onSubmit, isLoading }) {
               onChange={handleChange}
               required
               className={inputClasses}
-            />
-          </FieldGroup>
-
-          <FieldGroup label="Gender" htmlFor="gender" icon="⚥">
-            <SelectField
-              name="gender"
-              options={GENDERS}
-              placeholder="Select gender"
-              required
             />
           </FieldGroup>
 
