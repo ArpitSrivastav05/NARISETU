@@ -19,24 +19,39 @@ const fs = require("fs");
 const SERVICE_ACCOUNT_PATH = path.resolve(__dirname, "..", "serviceAccountKey.json");
 
 // ── Initialize the Firebase Admin app ────────────────────────
-// We guard against double-initialization and missing/empty key files
-// so the server can boot gracefully during development setup.
+// Supports two modes:
+//   1. FIREBASE_SERVICE_ACCOUNT env var (for Render / production)
+//   2. Local serviceAccountKey.json file  (for local development)
 let db = null;
 
 if (!admin.apps.length) {
   try {
-    // Check if the file exists and has content
-    const fileContent = fs.readFileSync(SERVICE_ACCOUNT_PATH, "utf-8").trim();
+    let serviceAccount;
 
-    if (!fileContent) {
-      throw new Error("serviceAccountKey.json is empty.");
+    // ── Priority 1: Environment variable (Render deployment) ──
+    if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+      console.log("📦 Loading Firebase credentials from environment variable...");
+      serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
     }
+    // ── Priority 2: Local JSON file (development) ─────────────
+    else if (fs.existsSync(SERVICE_ACCOUNT_PATH)) {
+      console.log("📁 Loading Firebase credentials from serviceAccountKey.json...");
+      const fileContent = fs.readFileSync(SERVICE_ACCOUNT_PATH, "utf-8").trim();
 
-    const serviceAccount = JSON.parse(fileContent);
+      if (!fileContent) {
+        throw new Error("serviceAccountKey.json is empty.");
+      }
+
+      serviceAccount = JSON.parse(fileContent);
+    } else {
+      throw new Error(
+        "No Firebase credentials found. Set FIREBASE_SERVICE_ACCOUNT env var or add serviceAccountKey.json."
+      );
+    }
 
     // Validate that it has the minimum required fields
     if (!serviceAccount.project_id || !serviceAccount.private_key) {
-      throw new Error("serviceAccountKey.json is missing required fields (project_id, private_key).");
+      throw new Error("Firebase credentials are missing required fields (project_id, private_key).");
     }
 
     admin.initializeApp({
