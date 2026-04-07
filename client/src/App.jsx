@@ -6,7 +6,7 @@ import ResultsList from "./components/ResultsList";
    NariSetu — Main Application Shell
    ══════════════════════════════════════════════════════ */
 
-const API_URL = "[INSERT_YOUR_LIVE_RENDER_URL_HERE]/api/schemes/match";
+const API_URL = "https://narisetu-j9ac.onrender.com/api/schemes/match";
 
 export default function App() {
   const [results, setResults] = useState(null);
