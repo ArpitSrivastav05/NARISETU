@@ -21,6 +21,7 @@ const cors = require("cors");
 
 // ── Import route modules ─────────────────────────────────────
 const schemeRoutes = require("./routes/schemeRoutes");
+const ledgerRoutes = require("./routes/ledgerRoutes");
 
 // ── Initialize Express app ───────────────────────────────────
 const app = express();
@@ -68,6 +69,9 @@ app.get("/api/health", (req, res) => {
 // Full endpoint: POST /api/schemes/match
 app.use("/api/schemes", schemeRoutes);
 
+// Ledger voice routes — mounted at /api/ledger
+app.use("/api/ledger", ledgerRoutes);
+
 // ══════════════════════════════════════════════════════════════
 //  404 HANDLER
 // ══════════════════════════════════════════════════════════════
@@ -80,6 +84,7 @@ app.use((req, res) => {
     available_endpoints: [
       "GET  /api/health",
       "POST /api/schemes/match",
+      "POST /api/ledger/voice",
     ],
   });
 });
