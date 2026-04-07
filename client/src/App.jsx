@@ -74,10 +74,10 @@ const App = () => {
 
         <div className="p-4 border-t border-slate-800">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">👩🏽</div>
+            <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">👤</div>
             <div>
-              <p className="text-sm font-medium">Anshika Singh</p>
-              <p className="text-xs text-slate-400">Micro-Entrepreneur</p>
+              <p className="text-sm font-medium">Guest User</p>
+              <p className="text-xs text-slate-400">Visitor</p>
             </div>
           </div>
         </div>
