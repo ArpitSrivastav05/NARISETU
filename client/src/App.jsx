@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SchemeForm from "./components/SchemeForm";
 import ResultsList from "./components/ResultsList";
+import VoiceLedger from "./components/VoiceLedger";
 
 /* ══════════════════════════════════════════════════════
    NariSetu — Main Application Shell
@@ -103,6 +104,7 @@ export default function App() {
           <div className="lg:col-span-2">
             <div className="sticky top-20 rounded-3xl border border-navy-100/80 bg-white/90 backdrop-blur-md p-7 shadow-xl shadow-navy-500/5">
               <SchemeForm onSubmit={handleSubmit} isLoading={isLoading} />
+              <VoiceLedger />
             </div>
           </div>
 
