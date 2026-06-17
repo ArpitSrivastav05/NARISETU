@@ -22,6 +22,9 @@ const cors = require("cors");
 // ── Import route modules ─────────────────────────────────────
 const schemeRoutes = require("./routes/schemeRoutes");
 const ledgerRoutes = require("./routes/ledgerRoutes");
+const businessRoutes = require("./routes/businessRoutes");
+const productRoutes = require("./routes/productRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 // ── Initialize Express app ───────────────────────────────────
 const app = express();
@@ -71,6 +74,15 @@ app.use("/api/schemes", schemeRoutes);
 
 // Ledger voice routes — mounted at /api/ledger
 app.use("/api/ledger", ledgerRoutes);
+
+// Business routes — mounted at /api/business
+app.use("/api/business", businessRoutes);
+
+// Product routes — mounted at /api/products
+app.use("/api/products", productRoutes);
+
+// Dashboard & transaction routes — mounted at /api
+app.use("/api", dashboardRoutes);
 
 // ══════════════════════════════════════════════════════════════
 //  404 HANDLER

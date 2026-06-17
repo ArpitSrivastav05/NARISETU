@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import SchemeForm from './components/SchemeForm';
 import ResultsList from './components/ResultsList';
 import VoiceLedger from './components/VoiceLedger';
+import DashboardAnalytics from './components/DashboardAnalytics';
+import Marketplace from './components/Marketplace';
 
 const API_URL = "https://narisetu-j9ac.onrender.com/api/schemes/match";
 
@@ -36,7 +38,8 @@ const App = () => {
   const navItems = [
     { id: 'schemes', label: '🔎 Find Schemes', active: true },
     { id: 'ledger', label: '🎙️ Voice Ledger', active: true },
-    { id: 'market', label: '🛒 Marketplace', active: false, badge: 'Soon' },
+    { id: 'dashboard', label: '📈 Dashboard', active: true },
+    { id: 'market', label: '🛒 Marketplace', active: true },
   ];
 
   return (
@@ -88,9 +91,11 @@ const App = () => {
         {/* Mobile Header (Visible only on small screens) */}
         <div className="md:hidden bg-slate-900 text-white p-4 flex justify-between items-center shadow-md">
           <h1 className="text-xl font-bold">NariSetu</h1>
-          <div className="flex space-x-2">
-            <button onClick={() => setActiveTab('schemes')} className={`p-2 rounded ${activeTab === 'schemes' ? 'bg-blue-600' : 'bg-slate-800'}`}>🔎</button>
-            <button onClick={() => setActiveTab('ledger')} className={`p-2 rounded ${activeTab === 'ledger' ? 'bg-blue-600' : 'bg-slate-800'}`}>🎙️</button>
+          <div className="flex space-x-1">
+            <button onClick={() => setActiveTab('schemes')} className={`p-2 rounded text-sm ${activeTab === 'schemes' ? 'bg-blue-600' : 'bg-slate-800'}`}>🔎</button>
+            <button onClick={() => setActiveTab('ledger')} className={`p-2 rounded text-sm ${activeTab === 'ledger' ? 'bg-blue-600' : 'bg-slate-800'}`}>🎙️</button>
+            <button onClick={() => setActiveTab('dashboard')} className={`p-2 rounded text-sm ${activeTab === 'dashboard' ? 'bg-blue-600' : 'bg-slate-800'}`}>📈</button>
+            <button onClick={() => setActiveTab('market')} className={`p-2 rounded text-sm ${activeTab === 'market' ? 'bg-blue-600' : 'bg-slate-800'}`}>🛒</button>
           </div>
         </div>
 
@@ -120,6 +125,8 @@ const App = () => {
             </div>
           )}
           {activeTab === 'ledger' && <VoiceLedger />}
+          {activeTab === 'dashboard' && <DashboardAnalytics />}
+          {activeTab === 'market' && <Marketplace />}
         </div>
       </main>
     </div>
