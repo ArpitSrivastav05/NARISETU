@@ -177,5 +177,5 @@ function friendlyError(code) {
     "auth/network-request-failed": "Network error. Check your connection.",
     "auth/popup-blocked": "Pop-up was blocked. Please allow popups for this site.",
   };
-  return map[code] || "An error occurred. Please try again.";
+  return map[code] || `Error: ${code || "Unknown"} (Please check console or enable providers in Firebase)`;
 }

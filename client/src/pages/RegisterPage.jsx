@@ -188,5 +188,5 @@ function friendlyError(code) {
     "auth/invalid-email": "Please enter a valid email address.",
     "auth/network-request-failed": "Network error. Check your connection.",
   };
-  return map[code] || "An error occurred. Please try again.";
+  return map[code] || `Error: ${code || "Unknown"} (Please check console or enable providers in Firebase)`;
 }
