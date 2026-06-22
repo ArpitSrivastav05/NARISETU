@@ -25,7 +25,7 @@ export default function LoginPage() {
       await signIn(form.email, form.password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(friendlyError(err.code));
+      setError(friendlyError(err));
     } finally {
       setIsLoading(false);
     }
@@ -38,8 +38,8 @@ export default function LoginPage() {
       await signInWithGoogle();
       navigate(from, { replace: true });
     } catch (err) {
-      if (err.code !== "auth/popup-closed-by-user") {
-        setError(friendlyError(err.code));
+      if (err?.code !== "auth/popup-closed-by-user") {
+        setError(friendlyError(err));
       }
     } finally {
       setIsGoogleLoading(false);
@@ -165,8 +165,8 @@ export default function LoginPage() {
   );
 }
 
-// ── Firebase error codes → user-friendly messages ────────────
-function friendlyError(code) {
+function friendlyError(err) {
+  const code = err?.code;
   const map = {
     "auth/user-not-found": "No account found with this email.",
     "auth/wrong-password": "Incorrect password. Please try again.",
@@ -177,5 +177,8 @@ function friendlyError(code) {
     "auth/network-request-failed": "Network error. Check your connection.",
     "auth/popup-blocked": "Pop-up was blocked. Please allow popups for this site.",
   };
-  return map[code] || `Error: ${code || "Unknown"} (Please check console or enable providers in Firebase)`;
+  
+  if (code && map[code]) return map[code];
+  
+  return `Error: ${err?.message || code || "Unknown error."}`;
 }

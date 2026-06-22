@@ -32,7 +32,7 @@ export default function RegisterPage() {
       await signUp(form.email, form.password, form.name.trim());
       navigate("/", { replace: true });
     } catch (err) {
-      setError(friendlyError(err.code));
+      setError(friendlyError(err));
     } finally {
       setIsLoading(false);
     }
@@ -45,8 +45,8 @@ export default function RegisterPage() {
       await signInWithGoogle();
       navigate("/", { replace: true });
     } catch (err) {
-      if (err.code !== "auth/popup-closed-by-user") {
-        setError(friendlyError(err.code));
+      if (err?.code !== "auth/popup-closed-by-user") {
+        setError(friendlyError(err));
       }
     } finally {
       setIsGoogleLoading(false);
@@ -181,12 +181,16 @@ export default function RegisterPage() {
   );
 }
 
-function friendlyError(code) {
+function friendlyError(err) {
+  const code = err?.code;
   const map = {
     "auth/email-already-in-use": "This email is already registered. Try signing in.",
     "auth/weak-password": "Password must be at least 6 characters.",
     "auth/invalid-email": "Please enter a valid email address.",
     "auth/network-request-failed": "Network error. Check your connection.",
   };
-  return map[code] || `Error: ${code || "Unknown"} (Please check console or enable providers in Firebase)`;
+  
+  if (code && map[code]) return map[code];
+  
+  return `Error: ${err?.message || code || "Unknown error."}`;
 }
