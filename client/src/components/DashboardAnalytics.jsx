@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
 export default function DashboardAnalytics() {
+  const { authHeaders } = useAuth();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +13,8 @@ export default function DashboardAnalytics() {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_URL}/api/dashboard/summary`);
+      const headers = await authHeaders();
+      const res = await fetch(`${API_URL}/api/dashboard/summary`, { headers });
       if (!res.ok) throw new Error("Failed to fetch dashboard summary");
       const result = await res.json();
       if (result.success) {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
 const VoiceLedger = () => {
+  const { authHeaders, getToken } = useAuth();
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [transactions, setTransactions] = useState([]);
@@ -16,7 +18,8 @@ const VoiceLedger = () => {
   const fetchTransactions = async () => {
     setIsLoadingHistory(true);
     try {
-      const response = await fetch(`${API_URL}/api/transactions`);
+      const headers = await authHeaders();
+      const response = await fetch(`${API_URL}/api/transactions`, { headers });
       if (!response.ok) throw new Error("Failed to load transactions.");
       const data = await response.json();
       if (data.success) {
@@ -67,8 +70,15 @@ const VoiceLedger = () => {
     formData.append("audio", audioBlob, "recording.webm");
 
     try {
+      const token = await getToken();
+      const headers = {};
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const response = await fetch(`${API_URL}/api/ledger/voice`, {
         method: "POST",
+        headers,
         body: formData,
       });
 

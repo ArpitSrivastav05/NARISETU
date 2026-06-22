@@ -79,6 +79,27 @@ async function matchSchemes(req, res) {
     //   - stats: evaluation statistics for the response envelope
     const { results, stats } = runMatchEngine(user, schemes);
 
+    // Save search history if user is authenticated
+    if (req.user) {
+      try {
+        const historyRef = db
+          .collection("users")
+          .doc(req.user.uid)
+          .collection("schemeSearchHistory")
+          .doc();
+
+        await historyRef.set({
+          userId: req.user.uid,
+          timestamp: new Date().toISOString(),
+          formPayload: user,
+          matchCount: stats.total_matches_found,
+          topSchemeNames: results.slice(0, 3).map((r) => r.title || r.metadata?.title || r.name || "Scheme"),
+        });
+      } catch (historyErr) {
+        console.error("Failed to save scheme search history:", historyErr.message);
+      }
+    }
+
     // ── Step 4: Build and send the response ──────────────────
     return res.status(200).json({
       success: true,
@@ -106,4 +127,40 @@ async function matchSchemes(req, res) {
   }
 }
 
-module.exports = { matchSchemes };
+/**
+ * GET /api/schemes/history
+ * Returns search history for the authenticated user.
+ */
+async function getSchemeHistory(req, res) {
+  try {
+    const { uid } = req.user;
+    const historySnapshot = await db
+      .collection("users")
+      .doc(uid)
+      .collection("schemeSearchHistory")
+      .orderBy("timestamp", "desc")
+      .get();
+
+    const history = [];
+    historySnapshot.forEach((doc) => {
+      history.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: history,
+    });
+  } catch (error) {
+    console.error("Error in getSchemeHistory:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error while fetching history.",
+      message: error.message,
+    });
+  }
+}
+
+module.exports = { matchSchemes, getSchemeHistory };

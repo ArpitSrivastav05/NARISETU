@@ -25,6 +25,7 @@ const ledgerRoutes = require("./routes/ledgerRoutes");
 const businessRoutes = require("./routes/businessRoutes");
 const productRoutes = require("./routes/productRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // ── Initialize Express app ───────────────────────────────────
 const app = express();
@@ -83,6 +84,9 @@ app.use("/api/products", productRoutes);
 
 // Dashboard & transaction routes — mounted at /api
 app.use("/api", dashboardRoutes);
+
+// User routes — mounted at /api/user
+app.use("/api/user", userRoutes);
 
 // ══════════════════════════════════════════════════════════════
 //  404 HANDLER

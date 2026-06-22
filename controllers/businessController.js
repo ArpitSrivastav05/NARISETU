@@ -1,6 +1,40 @@
 const { db } = require("../config/firebase");
 
 /**
+ * GET /api/business/mine
+ * Retrieves the business profile owned by the authenticated user.
+ */
+exports.getMyBusiness = async (req, res) => {
+  try {
+    const { uid } = req.user;
+    const snapshot = await db.collection("businesses").where("uid", "==", uid).limit(1).get();
+
+    if (snapshot.empty) {
+      return res.status(200).json({
+        success: true,
+        data: null,
+      });
+    }
+
+    const doc = snapshot.docs[0];
+    return res.status(200).json({
+      success: true,
+      data: {
+        id: doc.id,
+        ...doc.data(),
+      },
+    });
+  } catch (error) {
+    console.error("Error in getMyBusiness:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error.",
+      message: error.message,
+    });
+  }
+};
+
+/**
  * POST /api/business/create
  * Creates a new business profile in the Firestore 'businesses' collection.
  */
@@ -15,6 +49,7 @@ exports.createBusiness = async (req, res) => {
       contactNumber,
       profileImage,
     } = req.body;
+    const { uid } = req.user; // populated by verifyToken
 
     // Validation
     if (!businessName || !ownerName || !category || !location || !contactNumber) {
@@ -26,6 +61,7 @@ exports.createBusiness = async (req, res) => {
     }
 
     const businessData = {
+      uid, // Associate user's Firebase Auth UID
       businessName: businessName.trim(),
       ownerName: ownerName.trim(),
       category: category.toLowerCase().trim(),

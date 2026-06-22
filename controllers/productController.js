@@ -7,6 +7,7 @@ const { db } = require("../config/firebase");
 exports.createProduct = async (req, res) => {
   try {
     const { sellerId, productName, category, price, description, imageUrl } = req.body;
+    const { uid } = req.user; // populated by verifyToken
 
     // Validation
     if (!sellerId || !productName || !category || price === undefined) {
@@ -36,7 +37,17 @@ exports.createProduct = async (req, res) => {
       });
     }
 
+    // Verify that the logged-in user owns the seller business profile
+    if (sellerDoc.data().uid !== uid) {
+      return res.status(403).json({
+        success: false,
+        error: "Forbidden.",
+        message: "You do not own this seller business profile.",
+      });
+    }
+
     const productData = {
+      uid, // Associate product with the creator's uid
       sellerId: sellerId.trim(),
       productName: productName.trim(),
       category: category.toLowerCase().trim(),
@@ -131,6 +142,7 @@ exports.getProducts = async (req, res) => {
         businessName: sellerInfo.businessName || "Unknown Business",
         location: sellerInfo.location || "N/A",
         contactNumber: sellerInfo.contactNumber || "",
+        sellerProfileImage: sellerInfo.profileImage || "",
       };
     });
 
@@ -186,6 +198,7 @@ exports.getProduct = async (req, res) => {
         businessName: sellerInfo.businessName || "Unknown Business",
         location: sellerInfo.location || "N/A",
         contactNumber: sellerInfo.contactNumber || "",
+        sellerProfileImage: sellerInfo.profileImage || "",
       },
     });
   } catch (error) {

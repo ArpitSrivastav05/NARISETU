@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -13,6 +14,7 @@ const PRODUCT_CATEGORIES = [
 ];
 
 export default function Marketplace() {
+  const { authHeaders } = useAuth();
   const [activeSubTab, setActiveSubTab] = useState("browse"); // "browse" or "sell"
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +28,7 @@ export default function Marketplace() {
   const [contactSeller, setContactSeller] = useState(null);
 
   // Seller/Business profile state
-  const [businessId, setBusinessId] = useState(localStorage.getItem("registeredBusinessId") || null);
+  const [businessId, setBusinessId] = useState(null);
   const [businessProfile, setBusinessProfile] = useState(null);
   const [isCheckingBusiness, setIsCheckingBusiness] = useState(false);
 
@@ -86,22 +88,23 @@ export default function Marketplace() {
     }
   };
 
-  // ── Fetch business profile on load if stored ────────────
-  const fetchBusinessProfile = async (id) => {
+  // ── Fetch authenticated user's business profile ────────────
+  const fetchMyBusinessProfile = async () => {
     setIsCheckingBusiness(true);
     try {
-      const res = await fetch(`${API_URL}/api/business/${id}`);
+      const headers = await authHeaders();
+      const res = await fetch(`${API_URL}/api/business/mine`, { headers });
       if (res.ok) {
         const data = await res.json();
-        if (data.success) {
+        if (data.success && data.data) {
           setBusinessProfile(data.data);
+          setBusinessId(data.data.id);
         } else {
-          // Stale ID in local storage
-          localStorage.removeItem("registeredBusinessId");
+          setBusinessProfile(null);
           setBusinessId(null);
         }
       } else {
-        localStorage.removeItem("registeredBusinessId");
+        setBusinessProfile(null);
         setBusinessId(null);
       }
     } catch (err) {
@@ -116,10 +119,8 @@ export default function Marketplace() {
   }, [selectedCategory, searchQuery]);
 
   useEffect(() => {
-    if (businessId) {
-      fetchBusinessProfile(businessId);
-    }
-  }, [businessId]);
+    fetchMyBusinessProfile();
+  }, [authHeaders]);
 
   // ── Handle Business Registration ───────────────────────
   const handleRegisterBusiness = async (e) => {
@@ -139,9 +140,10 @@ export default function Marketplace() {
     }
 
     try {
+      const headers = await authHeaders();
       const res = await fetch(`${API_URL}/api/business/create`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           businessName,
           ownerName,
@@ -149,14 +151,13 @@ export default function Marketplace() {
           location,
           contactNumber: cleanPhone,
           description,
-          profileImage: profileImage || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+          profileImage: profileImage || "https://api.dicebear.com/7.x/initials/svg?seed=" + encodeURIComponent(businessName) + "&backgroundColor=e8d5f5,f0e6ff&textColor=7c3aed",
         }),
       });
 
       const data = await res.json();
       if (!res.ok || !data.success) throw new Error(data.error || "Failed to create profile.");
 
-      localStorage.setItem("registeredBusinessId", data.data.id);
       setBusinessId(data.data.id);
       setBusinessProfile(data.data);
       setFormSuccess("Business profile created successfully!");
@@ -184,9 +185,10 @@ export default function Marketplace() {
     }
 
     try {
+      const headers = await authHeaders();
       const res = await fetch(`${API_URL}/api/products/create`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           sellerId: businessId,
           productName,
@@ -318,7 +320,8 @@ export default function Marketplace() {
                       alt={p.productName}
                       className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                       onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400";
+                        e.target.onerror = null;
+                        e.target.src = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400";
                       }}
                     />
                     <span className="absolute top-3 right-3 bg-white/95 text-navy-800 text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-full shadow-sm ring-1 ring-slate-100">
@@ -340,7 +343,19 @@ export default function Marketplace() {
 
                     <div className="mt-3.5 pt-1 text-xs text-slate-500 space-y-1.5">
                       <div className="flex items-center gap-1.5">
-                        <span>👩‍🌾</span>
+                        {p.sellerProfileImage ? (
+                          <img
+                            src={p.sellerProfileImage}
+                            alt={p.sellerName}
+                            className="w-5 h-5 rounded-full object-cover ring-1 ring-slate-200 flex-shrink-0"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.replaceWith(Object.assign(document.createElement('span'), { textContent: '👩‍🌾' }));
+                            }}
+                          />
+                        ) : (
+                          <span>👩‍🌾</span>
+                        )}
                         <span className="font-semibold text-slate-700">{p.sellerName}</span>
                         <span className="text-slate-300">|</span>
                         <span className="text-[10px] text-slate-400 truncate max-w-[100px]">{p.businessName}</span>
@@ -497,7 +512,8 @@ export default function Marketplace() {
                       alt={businessProfile.businessName}
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150";
+                        e.target.onerror = null;
+                        e.target.src = "https://api.dicebear.com/7.x/initials/svg?seed=" + encodeURIComponent(businessProfile.businessName || "Seller") + "&backgroundColor=e8d5f5,f0e6ff&textColor=7c3aed";
                       }}
                     />
                   </div>
@@ -508,16 +524,6 @@ export default function Marketplace() {
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    localStorage.removeItem("registeredBusinessId");
-                    setBusinessId(null);
-                    setBusinessProfile(null);
-                  }}
-                  className="text-xs border border-rose-200 text-rose-500 hover:bg-rose-50 px-3.5 py-2 rounded-xl font-bold transition"
-                >
-                  Logout
-                </button>
               </div>
 
               {/* Add Product Form */}
