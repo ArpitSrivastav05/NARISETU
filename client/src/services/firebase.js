@@ -7,7 +7,7 @@
  * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  */
 
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -21,7 +21,6 @@ import {
 } from "firebase/auth";
 
 // ── Firebase configuration ──────────────────────────────────
-// Values come from Vite environment variables (client/.env)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -31,20 +30,15 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// ── Initialize Firebase ──────────────────────────────────────
-let app;
-export let auth;
-let googleProvider;
+// ── Initialize Firebase (prevent duplicate app on hot-reload) ─
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-try {
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  googleProvider = new GoogleAuthProvider();
-  googleProvider.setCustomParameters({ prompt: "select_account" });
-} catch (error) {
-  console.error("Firebase Initialization Error:", error);
-  console.error("This is likely because the Firebase environment variables are missing or have placeholder values.");
-}
+// ── Auth instance ────────────────────────────────────────────
+export const auth = getAuth(app);
+
+// ── Google Auth Provider ─────────────────────────────────────
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 // ── Auth helper functions ────────────────────────────────────
 
