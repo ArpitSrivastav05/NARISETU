@@ -32,14 +32,19 @@ const firebaseConfig = {
 };
 
 // ── Initialize Firebase ──────────────────────────────────────
-const app = initializeApp(firebaseConfig);
+let app;
+let auth;
+let googleProvider;
 
-// ── Auth instance ────────────────────────────────────────────
-export const auth = getAuth(app);
-
-// ── Google Auth Provider ─────────────────────────────────────
-const googleProvider = new GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: "select_account" });
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  googleProvider = new GoogleAuthProvider();
+  googleProvider.setCustomParameters({ prompt: "select_account" });
+} catch (error) {
+  console.error("Firebase Initialization Error:", error);
+  console.error("This is likely because the Firebase environment variables are missing or have placeholder values.");
+}
 
 // ── Auth helper functions ────────────────────────────────────
 

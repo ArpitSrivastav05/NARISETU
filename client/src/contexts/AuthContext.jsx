@@ -74,6 +74,12 @@ export function AuthProvider({ children }) {
 
   // ── Listen to Firebase auth state ──────────────────────────
   useEffect(() => {
+    if (!auth) {
+      console.warn("Firebase Auth is not initialized. Please check your environment variables.");
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setCurrentUser(firebaseUser);
       if (firebaseUser) {
