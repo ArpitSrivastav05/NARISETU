@@ -33,7 +33,7 @@ const firebaseConfig = {
 
 // ── Initialize Firebase ──────────────────────────────────────
 let app;
-let auth;
+export let auth;
 let googleProvider;
 
 try {
