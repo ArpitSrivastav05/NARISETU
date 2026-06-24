@@ -22,12 +22,12 @@ import {
 
 // ── Firebase configuration ──────────────────────────────────
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAWl6ZJ1iahOWYWR5BF6ffl8X-_3F68cf4",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "narisetu-d0a23.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "narisetu-d0a23",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "narisetu-d0a23.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "894145370079",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:894145370079:web:515dcb5e761bf589b6d66a",
 };
 
 // ── Initialize Firebase (prevent duplicate app on hot-reload) ─
