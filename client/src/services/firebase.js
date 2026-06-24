@@ -12,6 +12,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -48,7 +50,18 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 /**
  * Sign in with Google via popup.
  */
-export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+/**
+ * Sign in with Google.
+ * Uses redirect on production (Vercel) to avoid cross-origin iframe issues,
+ * and popup on localhost for faster dev experience.
+ */
+export const signInWithGoogle = () => {
+  const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  if (isLocalhost) {
+    return signInWithPopup(auth, googleProvider);
+  }
+  return signInWithRedirect(auth, googleProvider);
+};
 
 /**
  * Sign in with email and password.
