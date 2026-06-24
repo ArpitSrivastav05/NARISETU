@@ -5,7 +5,13 @@ import { AuthProvider } from './contexts/AuthContext'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+if (rootElement.hasChildNodes()) {
+  rootElement.innerHTML = '';
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
