@@ -62,6 +62,8 @@ exports.createBusiness = async (req, res) => {
 
     const businessData = {
       uid, // Associate user's Firebase Auth UID
+      userId: uid, // Explicit ownership field
+      ownerId: uid, // Explicit ownership field
       businessName: businessName.trim(),
       ownerName: ownerName.trim(),
       category: category.toLowerCase().trim(),
@@ -96,10 +98,12 @@ exports.createBusiness = async (req, res) => {
 /**
  * GET /api/business/:id
  * Fetches a business profile by document ID.
+ * Enforces ownership check — only the owner can view their business details.
  */
 exports.getBusiness = async (req, res) => {
   try {
     const { id } = req.params;
+    const { uid } = req.user;
 
     if (!id) {
       return res.status(400).json({
@@ -117,11 +121,20 @@ exports.getBusiness = async (req, res) => {
       });
     }
 
+    // Ownership check
+    const data = doc.data();
+    if (data.uid !== uid) {
+      return res.status(403).json({
+        success: false,
+        error: "Forbidden. You do not own this business profile.",
+      });
+    }
+
     return res.status(200).json({
       success: true,
       data: {
         id: doc.id,
-        ...doc.data(),
+        ...data,
       },
     });
   } catch (error) {

@@ -68,7 +68,7 @@ function BenefitTag({ benefits }) {
   );
 }
 
-function SchemeCard({ scheme, index }) {
+function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
   return (
     <div
       className="group relative overflow-hidden rounded-2xl border border-navy-100/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-navy-500/8 hover:border-navy-200 hover:-translate-y-0.5"
@@ -83,7 +83,32 @@ function SchemeCard({ scheme, index }) {
         <span className="rounded-lg bg-navy-50 px-2.5 py-1 text-xs font-semibold text-navy-500 ring-1 ring-navy-100">
           {scheme.ministry}
         </span>
-        <ScoreBadge score={scheme.match_score} />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onToggleBookmark && onToggleBookmark(scheme.scheme_id)}
+            className={`p-1.5 rounded-full transition-colors ${
+              isSaved
+                ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                : "bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+            }`}
+            title={isSaved ? "Remove from Saved" : "Save Scheme"}
+          >
+            <svg
+              className="h-5 w-5"
+              fill={isSaved ? "currentColor" : "none"}
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={isSaved ? 0 : 2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+              />
+            </svg>
+          </button>
+          <ScoreBadge score={scheme.match_score} />
+        </div>
       </div>
 
       {/* Title */}
@@ -139,7 +164,7 @@ function SchemeCard({ scheme, index }) {
   );
 }
 
-export default function ResultsList({ data, isLoading }) {
+export default function ResultsList({ data, isLoading, savedSchemes = [], onToggleBookmark }) {
   // ── Loading State ──────────────────────────────────────
   if (isLoading) {
     return (
@@ -233,9 +258,18 @@ export default function ResultsList({ data, isLoading }) {
 
       {/* Cards grid */}
       <div className="grid gap-5 sm:grid-cols-1 lg:grid-cols-2">
-        {data.top_matches.map((scheme, index) => (
-          <SchemeCard key={scheme.scheme_id} scheme={scheme} index={index} />
-        ))}
+        {data.top_matches.map((scheme, index) => {
+          const isSaved = savedSchemes.some((s) => s.schemeId === scheme.scheme_id);
+          return (
+            <SchemeCard
+              key={scheme.scheme_id}
+              scheme={scheme}
+              index={index}
+              isSaved={isSaved}
+              onToggleBookmark={onToggleBookmark}
+            />
+          );
+        })}
       </div>
     </div>
   );

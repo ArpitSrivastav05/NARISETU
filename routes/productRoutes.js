@@ -7,9 +7,9 @@ const productController = require("../controllers/productController");
 router.post("/create", verifyToken, productController.createProduct);
 
 // GET /api/products
-router.get("/", productController.getProducts);
+router.get("/", verifyToken, productController.getProducts);
 
 // GET /api/products/:id
-router.get("/:id", productController.getProduct);
+router.get("/:id", verifyToken, productController.getProduct);
 
 module.exports = router;

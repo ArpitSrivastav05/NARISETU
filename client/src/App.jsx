@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 // Auth
@@ -32,6 +32,49 @@ function MainLayout() {
   const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [savedSchemes, setSavedSchemes] = useState([]);
+
+  // ── Fetch saved/bookmarked schemes ───────────────────────
+  const fetchSavedSchemes = useCallback(async () => {
+    try {
+      const headers = await authHeaders();
+      const res = await fetch(`${API_URL}/api/schemes/saved`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) setSavedSchemes(data.data);
+      }
+    } catch (err) {
+      console.warn('Could not load saved schemes:', err.message);
+    }
+  }, [authHeaders]);
+
+  useEffect(() => {
+    fetchSavedSchemes();
+  }, [fetchSavedSchemes]);
+
+  // ── Toggle bookmark on a scheme ──────────────────────────
+  const handleToggleBookmark = async (schemeId) => {
+    try {
+      const headers = await authHeaders();
+      const isAlreadySaved = savedSchemes.some((s) => s.schemeId === schemeId);
+
+      if (isAlreadySaved) {
+        await fetch(`${API_URL}/api/schemes/bookmark/${schemeId}`, {
+          method: 'DELETE',
+          headers,
+        });
+      } else {
+        await fetch(`${API_URL}/api/schemes/bookmark`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ schemeId }),
+        });
+      }
+      await fetchSavedSchemes();
+    } catch (err) {
+      console.error('Bookmark toggle error:', err.message);
+    }
+  };
 
   const handleSubmit = async (payload) => {
     setIsLoading(true);
@@ -189,7 +232,7 @@ function MainLayout() {
                     </p>
                   </div>
                 ) : (
-                  <ResultsList data={results} isLoading={isLoading} />
+                  <ResultsList data={results} isLoading={isLoading} savedSchemes={savedSchemes} onToggleBookmark={handleToggleBookmark} />
                 )}
               </div>
             </div>

@@ -73,7 +73,8 @@ export default function Marketplace() {
         url += `?${params.join("&")}`;
       }
 
-      const res = await fetch(url);
+      const headers = await authHeaders();
+      const res = await fetch(url, { headers });
       if (!res.ok) throw new Error("Failed to load products.");
       const data = await res.json();
       if (data.success) {
@@ -191,7 +192,6 @@ export default function Marketplace() {
         method: "POST",
         headers,
         body: JSON.stringify({
-          sellerId: businessId,
           productName,
           category,
           price: parsedPrice,

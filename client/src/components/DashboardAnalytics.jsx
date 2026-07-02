@@ -68,7 +68,16 @@ export default function DashboardAnalytics() {
     );
   }
 
-  const { totalIncome = 0, totalExpense = 0, netProfit = 0, recentTransactions = [], breakdown = {} } = data || {};
+  const {
+    totalIncome = 0,
+    totalExpense = 0,
+    netProfit = 0,
+    totalProducts = 0,
+    totalBusinesses = 0,
+    savedSchemesCount = 0,
+    recentTransactions = [],
+    breakdown = {},
+  } = data || {};
 
   return (
     <div className="space-y-8 animate-fadeIn">
@@ -87,7 +96,7 @@ export default function DashboardAnalytics() {
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {/* Income Card */}
         <div className="rounded-3xl border border-emerald-100 bg-emerald-50/40 p-6 shadow-sm flex items-start gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500 text-white text-2xl shadow-md shadow-emerald-500/20">
@@ -133,6 +142,42 @@ export default function DashboardAnalytics() {
               {netProfit < 0 ? "-" : ""}₹{Math.abs(netProfit).toLocaleString("en-IN")}
             </h3>
             <p className="text-xs text-slate-400 mt-1">Current net balance</p>
+          </div>
+        </div>
+
+        {/* My Products Card */}
+        <div className="rounded-3xl border border-indigo-100 bg-indigo-50/40 p-6 shadow-sm flex items-start gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500 text-white text-2xl shadow-md shadow-indigo-500/20">
+            📦
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">My Products</p>
+            <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalProducts}</h3>
+            <p className="text-xs text-slate-400 mt-1">Listed on marketplace</p>
+          </div>
+        </div>
+
+        {/* My Businesses Card */}
+        <div className="rounded-3xl border border-fuchsia-100 bg-fuchsia-50/40 p-6 shadow-sm flex items-start gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-fuchsia-500 text-white text-2xl shadow-md shadow-fuchsia-500/20">
+            🏬
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-fuchsia-600 uppercase tracking-wider">My Businesses</p>
+            <h3 className="text-2xl font-bold text-slate-800 mt-1">{totalBusinesses}</h3>
+            <p className="text-xs text-slate-400 mt-1">Registered profiles</p>
+          </div>
+        </div>
+
+        {/* Saved Schemes Card */}
+        <div className="rounded-3xl border border-cyan-100 bg-cyan-50/40 p-6 shadow-sm flex items-start gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500 text-white text-2xl shadow-md shadow-cyan-500/20">
+            🔖
+          </div>
+          <div>
+            <p className="text-xs font-semibold text-cyan-600 uppercase tracking-wider">Saved Schemes</p>
+            <h3 className="text-2xl font-bold text-slate-800 mt-1">{savedSchemesCount}</h3>
+            <p className="text-xs text-slate-400 mt-1">Bookmarked for later</p>
           </div>
         </div>
       </div>

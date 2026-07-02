@@ -2,22 +2,26 @@ const { db, admin } = require("../config/firebase");
 
 /**
  * GET /api/dashboard/summary
- * Returns financial summary filtered by the authenticated user's uid.
+ * Returns financial summary and workspace counts filtered by the authenticated user's uid.
  */
 exports.getSummary = async (req, res) => {
   try {
     const uid = req.user.uid;
 
-    const snapshot = await db
-      .collection("transactions")
-      .where("uid", "==", uid)
-      .get();
+    // Fetch transactions, products, businesses, and saved schemes in parallel
+    const [transactionSnapshot, productsSnapshot, businessesSnapshot, savedSchemesSnapshot] =
+      await Promise.all([
+        db.collection("transactions").where("uid", "==", uid).get(),
+        db.collection("products").where("uid", "==", uid).get(),
+        db.collection("businesses").where("uid", "==", uid).get(),
+        db.collection("savedSchemes").where("userId", "==", uid).get(),
+      ]);
 
     let totalIncome = 0;
     let totalExpense = 0;
     const items = [];
 
-    snapshot.forEach((doc) => {
+    transactionSnapshot.forEach((doc) => {
       const data = doc.data();
       const amount = Number(data.amount) || 0;
       const type = data.type || "expense";
@@ -69,9 +73,23 @@ exports.getSummary = async (req, res) => {
       target[category] = (target[category] || 0) + amount;
     });
 
+    // Workspace counts
+    const totalProducts = productsSnapshot.size;
+    const totalBusinesses = businessesSnapshot.size;
+    const savedSchemesCount = savedSchemesSnapshot.size;
+
     return res.status(200).json({
       success: true,
-      data: { totalIncome, totalExpense, netProfit, recentTransactions, breakdown },
+      data: {
+        totalIncome,
+        totalExpense,
+        netProfit,
+        totalProducts,
+        totalBusinesses,
+        savedSchemesCount,
+        recentTransactions,
+        breakdown,
+      },
     });
   } catch (error) {
     console.error("Error in getSummary:", error);

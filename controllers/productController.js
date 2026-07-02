@@ -3,18 +3,19 @@ const { db } = require("../config/firebase");
 /**
  * POST /api/products/create
  * Creates a new product listing.
+ * Derives sellerId from the authenticated user's business profile.
  */
 exports.createProduct = async (req, res) => {
   try {
-    const { sellerId, productName, category, price, description, imageUrl } = req.body;
+    const { productName, category, price, description, imageUrl } = req.body;
     const { uid } = req.user; // populated by verifyToken
 
     // Validation
-    if (!sellerId || !productName || !category || price === undefined) {
+    if (!productName || !category || price === undefined) {
       return res.status(400).json({
         success: false,
         error: "Missing required fields.",
-        message: "sellerId, productName, category, and price are required.",
+        message: "productName, category, and price are required.",
       });
     }
 
@@ -27,28 +28,29 @@ exports.createProduct = async (req, res) => {
       });
     }
 
-    // Verify that the seller's business exists
-    const sellerDoc = await db.collection("businesses").doc(sellerId).get();
-    if (!sellerDoc.exists) {
+    // Auto-lookup the user's business profile to derive sellerId
+    const businessSnapshot = await db
+      .collection("businesses")
+      .where("uid", "==", uid)
+      .limit(1)
+      .get();
+
+    if (businessSnapshot.empty) {
       return res.status(400).json({
         success: false,
-        error: "Invalid sellerId.",
-        message: "The specified seller business profile does not exist.",
+        error: "No business profile found.",
+        message: "You must register a business profile before listing products.",
       });
     }
 
-    // Verify that the logged-in user owns the seller business profile
-    if (sellerDoc.data().uid !== uid) {
-      return res.status(403).json({
-        success: false,
-        error: "Forbidden.",
-        message: "You do not own this seller business profile.",
-      });
-    }
+    const sellerDoc = businessSnapshot.docs[0];
+    const sellerId = sellerDoc.id;
 
     const productData = {
       uid, // Associate product with the creator's uid
-      sellerId: sellerId.trim(),
+      userId: uid, // Explicit ownership field
+      ownerId: uid, // Explicit ownership field
+      sellerId,
       productName: productName.trim(),
       category: category.toLowerCase().trim(),
       price: priceNum,

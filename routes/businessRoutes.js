@@ -10,6 +10,6 @@ router.get("/mine", verifyToken, businessController.getMyBusiness);
 router.post("/create", verifyToken, businessController.createBusiness);
 
 // GET /api/business/:id
-router.get("/:id", businessController.getBusiness);
+router.get("/:id", verifyToken, businessController.getBusiness);
 
 module.exports = router;

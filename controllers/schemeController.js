@@ -95,8 +95,19 @@ async function matchSchemes(req, res) {
           matchCount: stats.total_matches_found,
           topSchemeNames: results.slice(0, 3).map((r) => r.title || r.metadata?.title || r.name || "Scheme"),
         });
+
+        // Store in global schemeMatches collection for audit and analytics
+        const matchRef = db.collection("schemeMatches").doc();
+        await matchRef.set({
+          userId: req.user.uid,
+          ownerId: req.user.uid,
+          timestamp: new Date().toISOString(),
+          formPayload: user,
+          matchCount: stats.total_matches_found,
+          topSchemeNames: results.slice(0, 3).map((r) => r.title || r.metadata?.title || r.name || "Scheme"),
+        });
       } catch (historyErr) {
-        console.error("Failed to save scheme search history:", historyErr.message);
+        console.error("Failed to save scheme search history or matches:", historyErr.message);
       }
     }
 
@@ -163,4 +174,142 @@ async function getSchemeHistory(req, res) {
   }
 }
 
-module.exports = { matchSchemes, getSchemeHistory };
+/**
+ * POST /api/schemes/bookmark
+ * Bookmarks a scheme for the authenticated user.
+ */
+async function bookmarkScheme(req, res) {
+  try {
+    const { schemeId } = req.body;
+    const { uid } = req.user;
+
+    if (!schemeId) {
+      return res.status(400).json({
+        success: false,
+        error: "Scheme ID is required.",
+      });
+    }
+
+    // Verify scheme exists in 'schemes' collection
+    const schemeDoc = await db.collection("schemes").doc(schemeId).get();
+    if (!schemeDoc.exists) {
+      return res.status(404).json({
+        success: false,
+        error: "Scheme not found.",
+      });
+    }
+
+    const docId = `${uid}_${schemeId}`;
+    const savedRef = db.collection("savedSchemes").doc(docId);
+    const schemeData = schemeDoc.data();
+
+    await savedRef.set({
+      userId: uid,
+      ownerId: uid,
+      schemeId,
+      scheme_name: schemeData.scheme_name || schemeData.name || "Scheme",
+      description: schemeData.description || "",
+      ministry: schemeData.ministry || "",
+      benefits: schemeData.benefits || null,
+      metadata: schemeData.metadata || null,
+      createdAt: new Date().toISOString(),
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Scheme bookmarked successfully.",
+    });
+  } catch (error) {
+    console.error("Error in bookmarkScheme:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error.",
+      message: error.message,
+    });
+  }
+}
+
+/**
+ * DELETE /api/schemes/bookmark/:schemeId
+ * Removes a bookmarked scheme for the authenticated user.
+ */
+async function unbookmarkScheme(req, res) {
+  try {
+    const { schemeId } = req.params;
+    const { uid } = req.user;
+
+    if (!schemeId) {
+      return res.status(400).json({
+        success: false,
+        error: "Scheme ID is required.",
+      });
+    }
+
+    const docId = `${uid}_${schemeId}`;
+    const savedRef = db.collection("savedSchemes").doc(docId);
+    const doc = await savedRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({
+        success: false,
+        error: "Bookmark not found.",
+      });
+    }
+
+    await savedRef.delete();
+
+    return res.status(200).json({
+      success: true,
+      message: "Bookmark removed successfully.",
+    });
+  } catch (error) {
+    console.error("Error in unbookmarkScheme:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error.",
+      message: error.message,
+    });
+  }
+}
+
+/**
+ * GET /api/schemes/saved
+ * Returns bookmarked schemes for the authenticated user.
+ */
+async function getSavedSchemes(req, res) {
+  try {
+    const { uid } = req.user;
+    const snapshot = await db
+      .collection("savedSchemes")
+      .where("userId", "==", uid)
+      .get();
+
+    const saved = [];
+    snapshot.forEach((doc) => {
+      saved.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return res.status(200).json({
+      success: true,
+      data: saved,
+    });
+  } catch (error) {
+    console.error("Error in getSavedSchemes:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error.",
+      message: error.message,
+    });
+  }
+}
+
+module.exports = {
+  matchSchemes,
+  getSchemeHistory,
+  bookmarkScheme,
+  unbookmarkScheme,
+  getSavedSchemes,
+};
