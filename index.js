@@ -39,7 +39,7 @@ const PORT = process.env.PORT || 3000;
 //    In production, replace '*' with your specific frontend domain.
 app.use(cors({
   origin: "*",
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
