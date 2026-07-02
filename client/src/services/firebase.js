@@ -12,8 +12,6 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -21,18 +19,19 @@ import {
   updateProfile,
   onAuthStateChanged,
 } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // ── Sanitize env value (strip accidental quotes / whitespace) ─
 const clean = (val) => (val ? val.replace(/^[\s"']+|[\s"']+$/g, "") : "");
 
 // ── Firebase configuration ──────────────────────────────────
 const firebaseConfig = {
-  apiKey:            clean(import.meta.env.VITE_FIREBASE_API_KEY)              || "AIzaSyAWl6ZJ1iahOWYWR5BF6ffl8X-_3F68cf4",
-  authDomain:        clean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN)          || "narisetu-d0a23.firebaseapp.com",
-  projectId:         clean(import.meta.env.VITE_FIREBASE_PROJECT_ID)           || "narisetu-d0a23",
-  storageBucket:     clean(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET)      || "narisetu-d0a23.firebasestorage.app",
+  apiKey: clean(import.meta.env.VITE_FIREBASE_API_KEY) || "AIzaSyAWl6ZJ1iahOWYWR5BF6ffl8X-_3F68cf4",
+  authDomain: clean(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN) || "narisetu-d0a23.firebaseapp.com",
+  projectId: clean(import.meta.env.VITE_FIREBASE_PROJECT_ID) || "narisetu-d0a23",
+  storageBucket: clean(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET) || "narisetu-d0a23.firebasestorage.app",
   messagingSenderId: clean(import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID) || "894145370079",
-  appId:             clean(import.meta.env.VITE_FIREBASE_APP_ID)              || "1:894145370079:web:515dcb5e761bf589b6d66a",
+  appId: clean(import.meta.env.VITE_FIREBASE_APP_ID) || "1:894145370079:web:515dcb5e761bf589b6d66a",
 };
 
 // ── Initialize Firebase (prevent duplicate app on hot-reload) ─
@@ -40,6 +39,9 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 
 // ── Auth instance ────────────────────────────────────────────
 export const auth = getAuth(app);
+
+// ── Storage instance ─────────────────────────────────────────
+export const storage = getStorage(app);
 
 // ── Google Auth Provider ─────────────────────────────────────
 const googleProvider = new GoogleAuthProvider();
@@ -50,17 +52,8 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 /**
  * Sign in with Google via popup.
  */
-/**
- * Sign in with Google.
- * Uses redirect on production (Vercel) to avoid cross-origin iframe issues,
- * and popup on localhost for faster dev experience.
- */
 export const signInWithGoogle = () => {
-  const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-  if (isLocalhost) {
-    return signInWithPopup(auth, googleProvider);
-  }
-  return signInWithRedirect(auth, googleProvider);
+  return signInWithPopup(auth, googleProvider);
 };
 
 /**
@@ -105,3 +98,16 @@ export const getAuthToken = async () => {
  * Subscribe to auth state changes.
  */
 export { onAuthStateChanged };
+
+/**
+ * Upload an image file to Firebase Storage.
+ * Resizes the image client-side to prevent massive files if needed.
+ * Returns download URL.
+ */
+export const uploadImage = async (file, folder = "products") => {
+  if (!file) return null;
+  const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
+  const fileRef = ref(storage, `${folder}/${fileName}`);
+  await uploadBytes(fileRef, file);
+  return getDownloadURL(fileRef);
+};

@@ -22,7 +22,7 @@ exports.syncUser = async (req, res) => {
         name: bodyName || name,
         email: bodyEmail || email,
         photoURL: photoURL || picture || "",
-        role: "user",
+        role: "",
         createdAt: now,
         lastLogin: now,
         location: "",
@@ -88,7 +88,7 @@ exports.getProfile = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const { uid } = req.user;
-    const { name, location, state, businessCategory, phone } = req.body;
+    const { name, location, state, businessCategory, phone, role } = req.body;
 
     const updates = {};
     if (name !== undefined) updates.name = name.trim();
@@ -96,6 +96,12 @@ exports.updateProfile = async (req, res) => {
     if (state !== undefined) updates.state = state.trim();
     if (businessCategory !== undefined) updates.businessCategory = businessCategory.trim();
     if (phone !== undefined) updates.phone = phone.trim();
+    if (role !== undefined) {
+      const roleLower = role.toLowerCase().trim();
+      if (["buyer", "seller", "both"].includes(roleLower)) {
+        updates.role = roleLower;
+      }
+    }
     updates.updatedAt = admin.firestore.FieldValue.serverTimestamp();
 
     await db.collection("users").doc(uid).update(updates);

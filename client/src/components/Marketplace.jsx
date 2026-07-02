@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import ImageUploader from "./ImageUploader";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -470,13 +471,11 @@ export default function Marketplace() {
                 </div>
 
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Profile Image URL (Optional)</label>
-                  <input
-                    type="url"
-                    placeholder="Paste an image URL"
-                    value={businessForm.profileImage}
-                    onChange={(e) => setBusinessForm({ ...businessForm, profileImage: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                  <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Profile Image</label>
+                  <ImageUploader
+                    onUploadComplete={(url) => setBusinessForm({ ...businessForm, profileImage: url })}
+                    initialImageUrl={businessForm.profileImage}
+                    folder="businesses"
                   />
                 </div>
 
@@ -586,13 +585,11 @@ export default function Marketplace() {
                   </div>
 
                   <div className="space-y-1.5 sm:col-span-2">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Product Image URL</label>
-                    <input
-                      type="url"
-                      placeholder="Paste link to product image"
-                      value={productForm.imageUrl}
-                      onChange={(e) => setProductForm({ ...productForm, imageUrl: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Product Image</label>
+                    <ImageUploader
+                      onUploadComplete={(url) => setProductForm({ ...productForm, imageUrl: url })}
+                      initialImageUrl={productForm.imageUrl}
+                      folder="products"
                     />
                   </div>
 

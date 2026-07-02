@@ -13,6 +13,7 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 // Protected pages
 import ProfilePage from './pages/ProfilePage';
 import SchemeHistoryPage from './pages/SchemeHistoryPage';
+import OnboardingPage from './pages/OnboardingPage';
 
 // Feature components (existing)
 import SchemeForm from './components/SchemeForm';
@@ -213,6 +214,16 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+      {/* Onboarding route */}
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoute>
+            <OnboardingPage />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Protected main app */}
       <Route

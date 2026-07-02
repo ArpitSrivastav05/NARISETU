@@ -26,6 +26,7 @@ export default function ProfilePage() {
     state: userProfile?.state || "",
     businessCategory: userProfile?.businessCategory || "",
     phone: userProfile?.phone || "",
+    role: userProfile?.role || "buyer",
   });
 
   const handleChange = (e) =>
@@ -110,6 +111,7 @@ export default function ProfilePage() {
                   state: userProfile?.state || "",
                   businessCategory: userProfile?.businessCategory || "",
                   phone: userProfile?.phone || "",
+                  role: userProfile?.role || "buyer",
                 });
                 setIsEditing(true);
                 setSaveMsg("");
@@ -183,6 +185,19 @@ export default function ProfilePage() {
                 <option value="other">Other</option>
               </select>
             </div>
+            <div className="space-y-1.5 sm:col-span-2">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Account Role</label>
+              <select
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              >
+                <option value="buyer">Buyer / User (Explore schemes & market)</option>
+                <option value="seller">Seller / Artisan (Register business & list products)</option>
+                <option value="both">Both (Buy & Sell)</option>
+              </select>
+            </div>
 
             <div className="sm:col-span-2 flex gap-3">
               <button
@@ -206,6 +221,7 @@ export default function ProfilePage() {
             {[
               { label: "Full Name", value: userProfile?.name || currentUser?.displayName || "—" },
               { label: "Email", value: currentUser?.email || "—" },
+              { label: "Account Role", value: userProfile?.role ? userProfile.role.toUpperCase() : "—" },
               { label: "Phone", value: userProfile?.phone || "—" },
               { label: "Location", value: userProfile?.location || "—" },
               { label: "State", value: userProfile?.state || "—" },
