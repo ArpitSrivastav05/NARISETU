@@ -8,6 +8,8 @@ export default function DashboardAnalytics() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [aiSummary, setAiSummary] = useState(null);
+  const [aiSummaryLoading, setAiSummaryLoading] = useState(true);
 
   const fetchSummary = async () => {
     setIsLoading(true);
@@ -30,8 +32,26 @@ export default function DashboardAnalytics() {
     }
   };
 
+  const fetchAISummary = async () => {
+    setAiSummaryLoading(true);
+    try {
+      const headers = await authHeaders();
+      const res = await fetch(`${API_URL}/api/ai/summary`, { headers });
+      if (!res.ok) throw new Error("Failed to fetch AI summary");
+      const result = await res.json();
+      if (result.success) {
+        setAiSummary(result.data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setAiSummaryLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchSummary();
+    fetchAISummary();
   }, []);
 
   if (isLoading) {
@@ -94,6 +114,30 @@ export default function DashboardAnalytics() {
           🔄 Refresh Data
         </button>
       </div>
+
+      {!aiSummaryLoading && aiSummary ? (
+        <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-6 shadow-sm">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">AI Summary</p>
+              <p className="mt-2 text-sm text-slate-600">{aiSummary.summary}</p>
+            </div>
+            <div className="rounded-2xl bg-white/80 px-3 py-2 text-right shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Health Score</p>
+              <p className="text-xl font-bold text-slate-800">{aiSummary.financialHealth?.score ?? 0}/100</p>
+            </div>
+          </div>
+          {aiSummary.recommendations?.length ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {aiSummary.recommendations.slice(0, 2).map((recommendation) => (
+                <span key={recommendation.title} className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
+                  {recommendation.title}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       {/* Metrics Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

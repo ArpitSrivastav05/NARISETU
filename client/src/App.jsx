@@ -21,6 +21,7 @@ import ResultsList from './components/ResultsList';
 import VoiceLedger from './components/VoiceLedger';
 import DashboardAnalytics from './components/DashboardAnalytics';
 import Marketplace from './components/Marketplace';
+import AICoachPage from './pages/AICoachPage';
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -104,6 +105,7 @@ function MainLayout() {
     { id: 'schemes',   label: '🔎 Find Schemes' },
     { id: 'ledger',    label: '🎙️ Voice Ledger' },
     { id: 'dashboard', label: '📈 Dashboard' },
+    { id: 'coach',     label: '🤖 AI Coach' },
     { id: 'market',    label: '🛒 Marketplace' },
     { id: 'history',   label: '📋 Scheme History' },
     { id: 'profile',   label: '👤 Profile' },
@@ -240,6 +242,7 @@ function MainLayout() {
 
           {activeTab === 'ledger' && <VoiceLedger />}
           {activeTab === 'dashboard' && <DashboardAnalytics />}
+          {activeTab === 'coach' && <AICoachPage />}
           {activeTab === 'market' && <Marketplace />}
           {activeTab === 'history' && <SchemeHistoryPage />}
           {activeTab === 'profile' && <ProfilePage />}
