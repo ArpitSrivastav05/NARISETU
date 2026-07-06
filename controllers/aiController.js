@@ -7,6 +7,8 @@ const {
   buildMonthlySummary,
   buildSavingsGoalProgress,
   generateCoachReply,
+  generateIntelligenceFeed,
+  optimizeProductDescription,
 } = require("../utils/aiCoachService");
 
 async function collectCoachContext(uid) {
@@ -18,18 +20,20 @@ async function collectCoachContext(uid) {
       transactions: [],
       savedSchemes: [],
       schemeMatches: [],
+      learningProgress: {},
       monthlySavingsGoal: 0,
       projectedMonthlySavings: 0,
     };
   }
 
-  const [userDoc, businessesSnapshot, productsSnapshot, transactionsSnapshot, savedSchemesSnapshot, schemeMatchesSnapshot] = await Promise.all([
+  const [userDoc, businessesSnapshot, productsSnapshot, transactionsSnapshot, savedSchemesSnapshot, schemeMatchesSnapshot, learningSnapshot] = await Promise.all([
     db.collection("users").doc(uid).get(),
     db.collection("businesses").where("uid", "==", uid).get(),
     db.collection("products").where("uid", "==", uid).get(),
     db.collection("transactions").where("uid", "==", uid).get(),
     db.collection("savedSchemes").where("userId", "==", uid).get(),
     db.collection("schemeMatches").where("userId", "==", uid).get(),
+    db.collection("users").doc(uid).collection("learningProgress").get()
   ]);
 
   const userProfile = userDoc.exists ? { id: userDoc.id, ...userDoc.data() } : null;
@@ -38,6 +42,13 @@ async function collectCoachContext(uid) {
   const transactions = serializeSnapshot(transactionsSnapshot);
   const savedSchemes = serializeSnapshot(savedSchemesSnapshot);
   const schemeMatches = serializeSnapshot(schemeMatchesSnapshot);
+  
+  const learningProgress = {};
+  if (learningSnapshot && !learningSnapshot.empty) {
+    learningSnapshot.forEach(doc => {
+      learningProgress[doc.id] = doc.data();
+    });
+  }
 
   let totalIncome = 0;
   let totalExpense = 0;
@@ -58,6 +69,7 @@ async function collectCoachContext(uid) {
     transactions,
     savedSchemes,
     schemeMatches,
+    learningProgress,
     totalIncome,
     totalExpense,
     netProfit,
@@ -178,5 +190,40 @@ exports.setSavingsGoal = async (req, res) => {
   } catch (error) {
     console.error("Error in ai set savings goal:", error);
     return res.status(500).json({ success: false, error: "Internal server error.", message: error.message });
+  }
+};
+
+exports.getIntelligenceFeed = async (req, res) => {
+  try {
+    const { uid } = req.user;
+    const context = await collectCoachContext(uid);
+    const feed = await generateIntelligenceFeed(context);
+
+    return res.status(200).json({
+      success: true,
+      data: feed,
+    });
+  } catch (error) {
+    console.error("Error in intelligence feed:", error);
+    return res.status(500).json({ success: false, error: "Internal server error." });
+  }
+};
+
+exports.optimizeProduct = async (req, res) => {
+  try {
+    const { productData } = req.body;
+    if (!productData) {
+      return res.status(400).json({ success: false, error: "Product data is required." });
+    }
+
+    const optimization = await optimizeProductDescription(productData);
+
+    return res.status(200).json({
+      success: true,
+      data: optimization,
+    });
+  } catch (error) {
+    console.error("Error optimizing product:", error);
+    return res.status(500).json({ success: false, error: "Internal server error." });
   }
 };

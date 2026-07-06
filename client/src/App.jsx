@@ -20,6 +20,7 @@ import SchemeForm from './components/SchemeForm';
 import ResultsList from './components/ResultsList';
 import VoiceLedger from './components/VoiceLedger';
 import DashboardAnalytics from './components/DashboardAnalytics';
+import IntelligenceDashboard from './pages/IntelligenceDashboard';
 import Marketplace from './components/Marketplace';
 import AICoachPage from './pages/AICoachPage';
 import LandingPage from './pages/LandingPage';
@@ -31,7 +32,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.
 function MainLayout() {
   const { currentUser, userProfile, logout, authHeaders } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('schemes');
+  const [activeTab, setActiveTab] = useState('home');
   const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -104,9 +105,10 @@ function MainLayout() {
   };
 
   const navItems = [
+    { id: 'home',      label: '🧠 Intelligence' },
     { id: 'schemes',   label: '🔎 Find Schemes' },
     { id: 'ledger',    label: '🎙️ Voice Ledger' },
-    { id: 'dashboard', label: '📈 Dashboard' },
+    { id: 'dashboard', label: '📈 Data Dashboard' },
     { id: 'coach',     label: '🤖 AI Coach' },
     { id: 'market',    label: '🛒 Marketplace' },
     { id: 'history',   label: '📋 Scheme History' },
@@ -243,6 +245,7 @@ function MainLayout() {
             </div>
           )}
 
+          {activeTab === 'home' && <IntelligenceDashboard />}
           {activeTab === 'ledger' && <VoiceLedger />}
           {activeTab === 'dashboard' && <DashboardAnalytics />}
           {activeTab === 'coach' && <AICoachPage />}

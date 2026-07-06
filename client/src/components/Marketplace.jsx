@@ -55,6 +55,7 @@ export default function Marketplace() {
   const [formError, setFormError] = useState(null);
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOptimizing, setIsOptimizing] = useState(false);
 
   // ── Fetch active products ──────────────────────────────
   const fetchProducts = async () => {
@@ -167,6 +168,42 @@ export default function Marketplace() {
       setFormError(err.message);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // ── Handle AI Optimization ────────────────────────────
+  const handleOptimizeProduct = async () => {
+    if (!productForm.productName || !productForm.price) {
+      setFormError("Please enter a product name and price before optimizing.");
+      return;
+    }
+    setFormError(null);
+    setFormSuccess(false);
+    setIsOptimizing(true);
+
+    try {
+      const headers = await authHeaders();
+      const res = await fetch(`${API_URL}/api/ai/optimize-product`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          productData: {
+            name: productForm.productName,
+            price: productForm.price,
+            description: productForm.description,
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || "Failed to optimize product.");
+
+      setProductForm({ ...productForm, description: data.data.optimizedDescription });
+      setFormSuccess("✨ Product description optimized by AI!");
+    } catch (err) {
+      setFormError(err.message);
+    } finally {
+      setIsOptimizing(false);
     }
   };
 
@@ -594,7 +631,17 @@ export default function Marketplace() {
                   </div>
 
                   <div className="space-y-1.5 sm:col-span-2">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Description</label>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Description</label>
+                      <button
+                        type="button"
+                        onClick={handleOptimizeProduct}
+                        disabled={isOptimizing}
+                        className="text-xs font-bold text-purple-600 hover:text-purple-700 bg-purple-50 hover:bg-purple-100 px-3 py-1 rounded-full transition disabled:opacity-50"
+                      >
+                        {isOptimizing ? "Optimizing..." : "✨ AI Optimize"}
+                      </button>
+                    </div>
                     <textarea
                       rows="4"
                       placeholder="Provide product details, sizing, material composition, or crafting time..."
