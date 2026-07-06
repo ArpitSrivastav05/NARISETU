@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const learningController = require("../controllers/learningController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { verifyToken } = require("../middleware/verifyToken");
 
 // All learning routes should be protected by authentication
-router.use(authMiddleware);
+router.use(verifyToken);
 
 // Get course catalog and recommendations
 router.get("/courses", learningController.getCourses);
