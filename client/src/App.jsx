@@ -23,6 +23,7 @@ import DashboardAnalytics from './components/DashboardAnalytics';
 import Marketplace from './components/Marketplace';
 import AICoachPage from './pages/AICoachPage';
 import LandingPage from './pages/LandingPage';
+import LearningHubPage from './pages/LearningHubPage';
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -110,6 +111,7 @@ function MainLayout() {
     { id: 'market',    label: '🛒 Marketplace' },
     { id: 'history',   label: '📋 Scheme History' },
     { id: 'profile',   label: '👤 Profile' },
+    { id: 'learning',  label: '📚 Learning Hub' },
   ];
 
   const avatarSrc =
@@ -247,6 +249,7 @@ function MainLayout() {
           {activeTab === 'market' && <Marketplace />}
           {activeTab === 'history' && <SchemeHistoryPage />}
           {activeTab === 'profile' && <ProfilePage />}
+          {activeTab === 'learning' && <LearningHubPage />}
         </div>
       </main>
     </div>

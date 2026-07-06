@@ -27,6 +27,7 @@ const productRoutes = require("./routes/productRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const userRoutes = require("./routes/userRoutes");
 const aiRoutes = require("./routes/aiRoutes");
+const learningRoutes = require("./routes/learningRoutes");
 
 // ── Initialize Express app ───────────────────────────────────
 const app = express();
@@ -91,6 +92,9 @@ app.use("/api/user", userRoutes);
 
 // AI coach routes — mounted at /api/ai
 app.use("/api/ai", aiRoutes);
+
+// Learning Hub routes — mounted at /api/learning
+app.use("/api/learning", learningRoutes);
 
 // ══════════════════════════════════════════════════════════════
 //  404 HANDLER
