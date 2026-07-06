@@ -39,7 +39,7 @@ export default function OnboardingPage() {
       }
 
       await refreshProfile();
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       console.error(err);
       setError(err.message || "Something went wrong. Please try again.");

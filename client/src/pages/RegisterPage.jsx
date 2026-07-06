@@ -30,7 +30,7 @@ export default function RegisterPage() {
     setIsLoading(true);
     try {
       await signUp(form.email, form.password, form.name.trim());
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(friendlyError(err));
     } finally {
@@ -43,7 +43,7 @@ export default function RegisterPage() {
     setIsGoogleLoading(true);
     try {
       await signInWithGoogle();
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       if (err?.code !== "auth/popup-closed-by-user") {
         setError(friendlyError(err));

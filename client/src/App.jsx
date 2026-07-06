@@ -22,6 +22,7 @@ import VoiceLedger from './components/VoiceLedger';
 import DashboardAnalytics from './components/DashboardAnalytics';
 import Marketplace from './components/Marketplace';
 import AICoachPage from './pages/AICoachPage';
+import LandingPage from './pages/LandingPage';
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -271,15 +272,20 @@ export default function App() {
         }
       />
 
+      <Route path="/" element={<LandingPage />} />
+
       {/* Protected main app */}
       <Route
-        path="/*"
+        path="/dashboard/*"
         element={
           <ProtectedRoute>
             <MainLayout />
           </ProtectedRoute>
         }
       />
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
