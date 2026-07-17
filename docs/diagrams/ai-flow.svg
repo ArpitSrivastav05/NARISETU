@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 680" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="ahd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="ash" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="780" height="680" rx="14" fill="#FAF5FF"/>
+  <rect x="0" y="0" width="780" height="50" rx="14" fill="url(#ahd)"/>
+  <rect x="0" y="25" width="780" height="25" fill="url(#ahd)"/>
+  <text x="390" y="33" text-anchor="middle" fill="white" font-size="16" font-weight="700">🧠  AI Workflows — NariSetu Intelligence</text>
+
+  <!-- ===== LEFT COLUMN: Voice Ledger Flow ===== -->
+  <text x="195" y="80" text-anchor="middle" fill="#6D28D9" font-size="13" font-weight="700">Voice Ledger Pipeline</text>
+
+  <rect x="105" y="95" width="180" height="38" rx="8" fill="#EF4444" filter="url(#ash)"/>
+  <text x="195" y="119" text-anchor="middle" fill="white" font-size="11" font-weight="600">🎤 Voice Input (Hindi/English)</text>
+  <line x1="195" y1="133" x2="195" y2="153" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="191,153 199,153 195,159" fill="#94A3B8"/>
+
+  <rect x="105" y="162" width="180" height="38" rx="8" fill="#F97316" filter="url(#ash)"/>
+  <text x="195" y="186" text-anchor="middle" fill="white" font-size="11" font-weight="600">🔊 Browser Audio Recording</text>
+  <line x1="195" y1="200" x2="195" y2="220" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="191,220 199,220 195,226" fill="#94A3B8"/>
+
+  <rect x="105" y="229" width="180" height="38" rx="8" fill="#A855F7" filter="url(#ash)"/>
+  <text x="195" y="253" text-anchor="middle" fill="white" font-size="11" font-weight="600">🧠 Gemini 2.5 Flash</text>
+  <line x1="195" y1="267" x2="195" y2="287" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="191,287 199,287 195,293" fill="#94A3B8"/>
+
+  <rect x="105" y="296" width="180" height="38" rx="8" fill="#3B82F6" filter="url(#ash)"/>
+  <text x="195" y="320" text-anchor="middle" fill="white" font-size="11" font-weight="600">📋 JSON Extraction</text>
+  <line x1="195" y1="334" x2="195" y2="354" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="191,354 199,354 195,360" fill="#94A3B8"/>
+
+  <rect x="105" y="363" width="180" height="38" rx="8" fill="#F59E0B" filter="url(#ash)"/>
+  <text x="195" y="387" text-anchor="middle" fill="white" font-size="11" font-weight="600">🗄️ Firestore Storage</text>
+  <line x1="195" y1="401" x2="195" y2="421" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="191,421 199,421 195,427" fill="#94A3B8"/>
+
+  <rect x="105" y="430" width="180" height="38" rx="8" fill="#10B981" filter="url(#ash)"/>
+  <text x="195" y="454" text-anchor="middle" fill="white" font-size="11" font-weight="600">📊 Dashboard Update</text>
+
+  <!-- ===== RIGHT COLUMN: Intelligence Feed Flow ===== -->
+  <text x="585" y="80" text-anchor="middle" fill="#6D28D9" font-size="13" font-weight="700">Intelligence Feed Pipeline</text>
+
+  <rect x="495" y="95" width="180" height="38" rx="8" fill="#1E293B" filter="url(#ash)"/>
+  <text x="585" y="119" text-anchor="middle" fill="white" font-size="11" font-weight="600">👤 User Logs In</text>
+  <line x1="585" y1="133" x2="585" y2="153" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="581,153 589,153 585,159" fill="#94A3B8"/>
+
+  <rect x="495" y="162" width="180" height="38" rx="8" fill="#F97316" filter="url(#ash)"/>
+  <text x="585" y="186" text-anchor="middle" fill="white" font-size="11" font-weight="600">🗄️ Collect All User Data</text>
+  <line x1="585" y1="200" x2="585" y2="220" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="581,220 589,220 585,226" fill="#94A3B8"/>
+
+  <rect x="465" y="229" width="240" height="50" rx="8" fill="#A855F7" filter="url(#ash)"/>
+  <text x="585" y="250" text-anchor="middle" fill="white" font-size="11" font-weight="600">🧠 Gemini 2.5 Flash Analysis</text>
+  <text x="585" y="266" text-anchor="middle" fill="#E9D5FF" font-size="8">Transactions · Products · Schemes · Learning</text>
+  <line x1="585" y1="279" x2="585" y2="299" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="581,299 589,299 585,305" fill="#94A3B8"/>
+
+  <rect x="495" y="308" width="180" height="38" rx="8" fill="#3B82F6" filter="url(#ash)"/>
+  <text x="585" y="332" text-anchor="middle" fill="white" font-size="11" font-weight="600">📋 Structured JSON Output</text>
+  <line x1="585" y1="346" x2="585" y2="370" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="581,370 589,370 585,376" fill="#94A3B8"/>
+
+  <!-- Fan out to 4 outputs -->
+  <line x1="510" y1="376" x2="470" y2="416" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="555" y1="376" x2="540" y2="416" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="615" y1="376" x2="630" y2="416" stroke="#94A3B8" stroke-width="1.5"/>
+  <line x1="660" y1="376" x2="700" y2="416" stroke="#94A3B8" stroke-width="1.5"/>
+
+  <rect x="420" y="420" width="105" height="35" rx="7" fill="#14B8A6" filter="url(#ash)"/>
+  <text x="472" y="442" text-anchor="middle" fill="white" font-size="9" font-weight="600">Daily Briefing</text>
+
+  <rect x="530" y="420" width="105" height="35" rx="7" fill="#6366F1" filter="url(#ash)"/>
+  <text x="582" y="442" text-anchor="middle" fill="white" font-size="9" font-weight="600">Business Roadmap</text>
+
+  <rect x="420" y="465" width="105" height="35" rx="7" fill="#EF4444" filter="url(#ash)"/>
+  <text x="472" y="487" text-anchor="middle" fill="white" font-size="9" font-weight="600">Predictive Analytics</text>
+
+  <rect x="530" y="465" width="105" height="35" rx="7" fill="#F59E0B" filter="url(#ash)"/>
+  <text x="582" y="487" text-anchor="middle" fill="white" font-size="9" font-weight="600">Smart Notifications</text>
+
+  <rect x="640" y="420" width="105" height="35" rx="7" fill="#EC4899" filter="url(#ash)"/>
+  <text x="692" y="442" text-anchor="middle" fill="white" font-size="9" font-weight="600">Health Score</text>
+
+  <!-- Divider -->
+  <line x1="390" y1="75" x2="390" y2="510" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Bottom: AI Coach -->
+  <rect x="40" y="530" width="700" height="105" rx="12" fill="white" stroke="#E2E8F0" stroke-width="1.5" filter="url(#ash)"/>
+  <text x="390" y="555" text-anchor="middle" fill="#6D28D9" font-size="13" font-weight="700">🤖  AI Business Coach — Contextual Chat Engine</text>
+
+  <rect x="60" y="570" width="130" height="28" rx="6" fill="#3B82F6"/>
+  <text x="125" y="589" text-anchor="middle" fill="white" font-size="9" font-weight="600">User Message</text>
+
+  <text x="205" y="589" fill="#94A3B8" font-size="14">→</text>
+
+  <rect x="220" y="570" width="130" height="28" rx="6" fill="#F97316"/>
+  <text x="285" y="589" text-anchor="middle" fill="white" font-size="9" font-weight="600">Collect Full Context</text>
+
+  <text x="365" y="589" fill="#94A3B8" font-size="14">→</text>
+
+  <rect x="380" y="570" width="130" height="28" rx="6" fill="#A855F7"/>
+  <text x="445" y="589" text-anchor="middle" fill="white" font-size="9" font-weight="600">Gemini + Context</text>
+
+  <text x="525" y="589" fill="#94A3B8" font-size="14">→</text>
+
+  <rect x="540" y="570" width="130" height="28" rx="6" fill="#10B981"/>
+  <text x="605" y="589" text-anchor="middle" fill="white" font-size="9" font-weight="600">Personalized Reply</text>
+
+  <text x="390" y="625" text-anchor="middle" fill="#94A3B8" font-size="9">Context includes: Financial Health · Products · Businesses · Schemes · Transactions · Learning Progress</text>
+
+  <text x="390" y="665" text-anchor="middle" fill="#94A3B8" font-size="9">Powered by Google Gemini 2.5 Flash · Built by Arpit Srivastav</text>
+</svg>

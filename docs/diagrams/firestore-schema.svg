@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="hGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+    <filter id="s" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="700" rx="16" fill="#FFFBF5"/>
+  <rect x="0" y="0" width="900" height="55" rx="16" fill="url(#hGrad)"/>
+  <rect x="0" y="28" width="900" height="27" fill="url(#hGrad)"/>
+  <text x="450" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="700">🗄️  Firestore Database Schema</text>
+
+  <!-- Root: users -->
+  <rect x="330" y="75" width="240" height="50" rx="12" fill="#6D28D9" filter="url(#s)"/>
+  <text x="450" y="105" text-anchor="middle" fill="white" font-size="14" font-weight="700">👤 users</text>
+
+  <!-- Vertical line from users -->
+  <line x1="450" y1="125" x2="450" y2="155" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Horizontal spread bar -->
+  <line x1="100" y1="155" x2="800" y2="155" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Branches down -->
+  <line x1="100" y1="155" x2="100" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="250" y1="155" x2="250" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="400" y1="155" x2="400" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="550" y1="155" x2="550" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="700" y1="155" x2="700" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+  <line x1="800" y1="155" x2="800" y2="180" stroke="#CBD5E1" stroke-width="2"/>
+
+  <!-- Collection: businesses -->
+  <rect x="20" y="180" width="160" height="115" rx="10" fill="white" stroke="#3B82F6" stroke-width="2" filter="url(#s)"/>
+  <rect x="20" y="180" width="160" height="30" rx="10" fill="#3B82F6"/>
+  <rect x="20" y="200" width="160" height="10" fill="#3B82F6"/>
+  <text x="100" y="200" text-anchor="middle" fill="white" font-size="11" font-weight="700">🏬 businesses</text>
+  <text x="32" y="228" fill="#475569" font-size="9">businessName: string</text>
+  <text x="32" y="242" fill="#475569" font-size="9">ownerName: string</text>
+  <text x="32" y="256" fill="#475569" font-size="9">category: string</text>
+  <text x="32" y="270" fill="#475569" font-size="9">location: string</text>
+  <text x="32" y="284" fill="#475569" font-size="9">contactNumber: string</text>
+
+  <!-- Collection: products -->
+  <rect x="170" y="180" width="160" height="115" rx="10" fill="white" stroke="#10B981" stroke-width="2" filter="url(#s)"/>
+  <rect x="170" y="180" width="160" height="30" rx="10" fill="#10B981"/>
+  <rect x="170" y="200" width="160" height="10" fill="#10B981"/>
+  <text x="250" y="200" text-anchor="middle" fill="white" font-size="11" font-weight="700">📦 products</text>
+  <text x="182" y="228" fill="#475569" font-size="9">productName: string</text>
+  <text x="182" y="242" fill="#475569" font-size="9">price: number</text>
+  <text x="182" y="256" fill="#475569" font-size="9">category: string</text>
+  <text x="182" y="270" fill="#475569" font-size="9">imageUrl: string</text>
+  <text x="182" y="284" fill="#475569" font-size="9">businessId: ref</text>
+
+  <!-- Collection: transactions -->
+  <rect x="320" y="180" width="160" height="115" rx="10" fill="white" stroke="#F59E0B" stroke-width="2" filter="url(#s)"/>
+  <rect x="320" y="180" width="160" height="30" rx="10" fill="#F59E0B"/>
+  <rect x="320" y="200" width="160" height="10" fill="#F59E0B"/>
+  <text x="400" y="200" text-anchor="middle" fill="white" font-size="11" font-weight="700">💰 transactions</text>
+  <text x="332" y="228" fill="#475569" font-size="9">amount: number</text>
+  <text x="332" y="242" fill="#475569" font-size="9">type: income | expense</text>
+  <text x="332" y="256" fill="#475569" font-size="9">description: string</text>
+  <text x="332" y="270" fill="#475569" font-size="9">createdAt: timestamp</text>
+  <text x="332" y="284" fill="#475569" font-size="9">uid: ref → users</text>
+
+  <!-- Collection: savedSchemes -->
+  <rect x="470" y="180" width="160" height="100" rx="10" fill="white" stroke="#8B5CF6" stroke-width="2" filter="url(#s)"/>
+  <rect x="470" y="180" width="160" height="30" rx="10" fill="#8B5CF6"/>
+  <rect x="470" y="200" width="160" height="10" fill="#8B5CF6"/>
+  <text x="550" y="200" text-anchor="middle" fill="white" font-size="11" font-weight="700">🔖 savedSchemes</text>
+  <text x="482" y="228" fill="#475569" font-size="9">schemeId: string</text>
+  <text x="482" y="242" fill="#475569" font-size="9">schemeName: string</text>
+  <text x="482" y="256" fill="#475569" font-size="9">savedAt: timestamp</text>
+  <text x="482" y="270" fill="#475569" font-size="9">userId: ref → users</text>
+
+  <!-- Collection: schemeMatches -->
+  <rect x="620" y="180" width="160" height="100" rx="10" fill="white" stroke="#EC4899" stroke-width="2" filter="url(#s)"/>
+  <rect x="620" y="180" width="160" height="30" rx="10" fill="#EC4899"/>
+  <rect x="620" y="200" width="160" height="10" fill="#EC4899"/>
+  <text x="700" y="200" text-anchor="middle" fill="white" font-size="11" font-weight="700">🎯 schemeMatches</text>
+  <text x="632" y="228" fill="#475569" font-size="9">matchScore: number</text>
+  <text x="632" y="242" fill="#475569" font-size="9">schemes: array</text>
+  <text x="632" y="256" fill="#475569" font-size="9">createdAt: timestamp</text>
+  <text x="632" y="270" fill="#475569" font-size="9">userId: ref → users</text>
+
+  <!-- Subcollection label -->
+  <text x="450" y="330" text-anchor="middle" fill="#6D28D9" font-size="12" font-weight="700">↳ Subcollections (nested under users/{uid})</text>
+
+  <!-- Subcollection: learningProgress -->
+  <rect x="70" y="350" width="200" height="100" rx="10" fill="white" stroke="#14B8A6" stroke-width="2" filter="url(#s)"/>
+  <rect x="70" y="350" width="200" height="30" rx="10" fill="#14B8A6"/>
+  <rect x="70" y="370" width="200" height="10" fill="#14B8A6"/>
+  <text x="170" y="370" text-anchor="middle" fill="white" font-size="11" font-weight="700">📚 learningProgress</text>
+  <text x="82" y="398" fill="#475569" font-size="9">courseId: string</text>
+  <text x="82" y="412" fill="#475569" font-size="9">completedLessons: array</text>
+  <text x="82" y="426" fill="#475569" font-size="9">quizScores: map</text>
+  <text x="82" y="440" fill="#475569" font-size="9">updatedAt: timestamp</text>
+
+  <!-- Subcollection: certificates -->
+  <rect x="350" y="350" width="200" height="100" rx="10" fill="white" stroke="#6366F1" stroke-width="2" filter="url(#s)"/>
+  <rect x="350" y="350" width="200" height="30" rx="10" fill="#6366F1"/>
+  <rect x="350" y="370" width="200" height="10" fill="#6366F1"/>
+  <text x="450" y="370" text-anchor="middle" fill="white" font-size="11" font-weight="700">🎓 certificates</text>
+  <text x="362" y="398" fill="#475569" font-size="9">courseName: string</text>
+  <text x="362" y="412" fill="#475569" font-size="9">completedAt: timestamp</text>
+  <text x="362" y="426" fill="#475569" font-size="9">score: number</text>
+  <text x="362" y="440" fill="#475569" font-size="9">certificateId: string</text>
+
+  <!-- Subcollection: aiInsights -->
+  <rect x="630" y="350" width="200" height="100" rx="10" fill="white" stroke="#A855F7" stroke-width="2" filter="url(#s)"/>
+  <rect x="630" y="350" width="200" height="30" rx="10" fill="#A855F7"/>
+  <rect x="630" y="370" width="200" height="10" fill="#A855F7"/>
+  <text x="730" y="370" text-anchor="middle" fill="white" font-size="11" font-weight="700">🧠 aiInsights</text>
+  <text x="642" y="398" fill="#475569" font-size="9">briefing: string</text>
+  <text x="642" y="412" fill="#475569" font-size="9">roadmap: array</text>
+  <text x="642" y="426" fill="#475569" font-size="9">predictive: map</text>
+  <text x="642" y="440" fill="#475569" font-size="9">generatedAt: timestamp</text>
+
+  <!-- User doc fields -->
+  <rect x="120" y="490" width="660" height="120" rx="12" fill="white" stroke="#E2E8F0" stroke-width="1.5" filter="url(#s)"/>
+  <rect x="120" y="490" width="660" height="30" rx="12" fill="#1E293B"/>
+  <rect x="120" y="510" width="660" height="10" fill="#1E293B"/>
+  <text x="450" y="510" text-anchor="middle" fill="white" font-size="11" font-weight="700">👤 users/{uid} — Document Fields</text>
+
+  <text x="145" y="540" fill="#475569" font-size="9" font-weight="600">name</text>
+  <text x="145" y="555" fill="#475569" font-size="9" font-weight="600">email</text>
+  <text x="145" y="570" fill="#475569" font-size="9" font-weight="600">phone</text>
+  <text x="145" y="585" fill="#475569" font-size="9" font-weight="600">location</text>
+  <text x="145" y="600" fill="#475569" font-size="9" font-weight="600">state</text>
+
+  <text x="300" y="540" fill="#475569" font-size="9" font-weight="600">gender</text>
+  <text x="300" y="555" fill="#475569" font-size="9" font-weight="600">caste</text>
+  <text x="300" y="570" fill="#475569" font-size="9" font-weight="600">income</text>
+  <text x="300" y="585" fill="#475569" font-size="9" font-weight="600">education</text>
+  <text x="300" y="600" fill="#475569" font-size="9" font-weight="600">employmentType</text>
+
+  <text x="470" y="540" fill="#475569" font-size="9" font-weight="600">businessType</text>
+  <text x="470" y="555" fill="#475569" font-size="9" font-weight="600">maritalStatus</text>
+  <text x="470" y="570" fill="#475569" font-size="9" font-weight="600">isBPL</text>
+  <text x="470" y="585" fill="#475569" font-size="9" font-weight="600">hasDisability</text>
+  <text x="470" y="600" fill="#475569" font-size="9" font-weight="600">createdAt</text>
+
+  <text x="640" y="540" fill="#475569" font-size="9" font-weight="600">photoURL</text>
+  <text x="640" y="555" fill="#475569" font-size="9" font-weight="600">aiCoach.monthlySavingsGoal</text>
+  <text x="640" y="570" fill="#475569" font-size="9" font-weight="600">aiCoach.updatedAt</text>
+  <text x="640" y="585" fill="#475569" font-size="9" font-weight="600">onboarded: boolean</text>
+
+  <text x="450" y="650" text-anchor="middle" fill="#94A3B8" font-size="9">All top-level collections filter by uid/userId · Subcollections are nested under users/{uid}</text>
+</svg>

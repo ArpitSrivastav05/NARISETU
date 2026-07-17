@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 800" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="hd" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <filter id="sh" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="480" height="800" rx="14" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="480" height="50" rx="14" fill="url(#hd)"/>
+  <rect x="0" y="25" width="480" height="25" fill="url(#hd)"/>
+  <text x="240" y="33" text-anchor="middle" fill="white" font-size="16" font-weight="700">🔗  API Request Flow</text>
+
+  <!-- Step 1: User -->
+  <rect x="150" y="70" width="180" height="42" rx="10" fill="#1E293B" filter="url(#sh)"/>
+  <text x="240" y="96" text-anchor="middle" fill="white" font-size="12" font-weight="600">👤 User (Browser)</text>
+  <line x1="240" y1="112" x2="240" y2="138" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,138 245,138 240,145" fill="#94A3B8"/>
+
+  <!-- Step 2: React Frontend -->
+  <rect x="130" y="148" width="220" height="42" rx="10" fill="#3B82F6" filter="url(#sh)"/>
+  <text x="240" y="174" text-anchor="middle" fill="white" font-size="12" font-weight="600">⚛️ React Frontend (Vite)</text>
+  <line x1="240" y1="190" x2="240" y2="216" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,216 245,216 240,223" fill="#94A3B8"/>
+  <text x="360" y="207" fill="#64748B" font-size="9" font-style="italic">fetch() with JWT</text>
+
+  <!-- Step 3: Firebase Auth -->
+  <rect x="130" y="226" width="220" height="42" rx="10" fill="#F59E0B" filter="url(#sh)"/>
+  <text x="240" y="252" text-anchor="middle" fill="white" font-size="12" font-weight="600">🔐 Firebase Auth SDK</text>
+  <line x1="240" y1="268" x2="240" y2="294" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,294 245,294 240,301" fill="#94A3B8"/>
+  <text x="360" y="285" fill="#64748B" font-size="9" font-style="italic">Bearer Token</text>
+
+  <!-- Step 4: Express Middleware -->
+  <rect x="110" y="304" width="260" height="42" rx="10" fill="#10B981" filter="url(#sh)"/>
+  <text x="240" y="330" text-anchor="middle" fill="white" font-size="12" font-weight="600">🛡️ verifyToken Middleware</text>
+  <line x1="240" y1="346" x2="240" y2="372" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,372 245,372 240,379" fill="#94A3B8"/>
+  <text x="380" y="363" fill="#64748B" font-size="9" font-style="italic">req.user = { uid }</text>
+
+  <!-- Step 5: Route Handler -->
+  <rect x="130" y="382" width="220" height="42" rx="10" fill="#6366F1" filter="url(#sh)"/>
+  <text x="240" y="408" text-anchor="middle" fill="white" font-size="12" font-weight="600">🗺️ Express Routes</text>
+  <line x1="240" y1="424" x2="240" y2="450" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,450 245,450 240,457" fill="#94A3B8"/>
+
+  <!-- Step 6: Controller -->
+  <rect x="130" y="460" width="220" height="42" rx="10" fill="#8B5CF6" filter="url(#sh)"/>
+  <text x="240" y="486" text-anchor="middle" fill="white" font-size="12" font-weight="600">🎮 Controllers</text>
+  <line x1="170" y1="502" x2="130" y2="538" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="125,535 135,541 128,543" fill="#94A3B8"/>
+  <line x1="310" y1="502" x2="350" y2="538" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="345,535 355,541 352,543" fill="#94A3B8"/>
+
+  <!-- Step 7a: Firestore -->
+  <rect x="30" y="545" width="180" height="42" rx="10" fill="#F97316" filter="url(#sh)"/>
+  <text x="120" y="571" text-anchor="middle" fill="white" font-size="12" font-weight="600">🗄️ Firestore</text>
+
+  <!-- Step 7b: Gemini AI -->
+  <rect x="270" y="545" width="180" height="42" rx="10" fill="#A855F7" filter="url(#sh)"/>
+  <text x="360" y="571" text-anchor="middle" fill="white" font-size="12" font-weight="600">🧠 Gemini AI</text>
+
+  <!-- Merge back -->
+  <line x1="120" y1="587" x2="240" y2="630" stroke="#94A3B8" stroke-width="2"/>
+  <line x1="360" y1="587" x2="240" y2="630" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,628 245,628 240,636" fill="#94A3B8"/>
+
+  <!-- Step 8: JSON Response -->
+  <rect x="130" y="640" width="220" height="42" rx="10" fill="#14B8A6" filter="url(#sh)"/>
+  <text x="240" y="666" text-anchor="middle" fill="white" font-size="12" font-weight="600">📤 JSON Response</text>
+  <line x1="240" y1="682" x2="240" y2="708" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="235,708 245,708 240,715" fill="#94A3B8"/>
+
+  <!-- Step 9: UI Update -->
+  <rect x="130" y="718" width="220" height="42" rx="10" fill="#1E293B" filter="url(#sh)"/>
+  <text x="240" y="744" text-anchor="middle" fill="white" font-size="12" font-weight="600">🖥️ UI State Update</text>
+
+  <text x="240" y="785" text-anchor="middle" fill="#94A3B8" font-size="9">All API calls are authenticated · Firestore queries scoped to uid</text>
+</svg>
