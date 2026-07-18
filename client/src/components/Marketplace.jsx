@@ -29,7 +29,7 @@ export default function Marketplace() {
   const [contactSeller, setContactSeller] = useState(null);
 
   // Seller/Business profile state
-  const [businessId, setBusinessId] = useState(null);
+
   const [businessProfile, setBusinessProfile] = useState(null);
   const [isCheckingBusiness, setIsCheckingBusiness] = useState(false);
 

@@ -37,7 +37,7 @@ These are used during the Vite build process. Use your production Firebase confi
 
 ### Render Deploy Secrets (for Backend Deployment)
 - `RENDER_DEPLOY_HOOK_URL`: Go to your Render Web Service **Settings** > **Deploy Hook**. Copy the URL.
-- `BACKEND_HEALTH_URL`: The public URL to your health check endpoint (e.g., `https://narisetu-api.onrender.com/api/health`).
+- `BACKEND_HEALTH_URL`: The public URL to your health check endpoint (e.g., `https://narisetu-ap c qcsxi.onrender.com/api/health`).
 
 ### Backend Test Secrets (Firebase)
 > [!IMPORTANT]
