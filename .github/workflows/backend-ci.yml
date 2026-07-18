@@ -1,0 +1,93 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'client/**'
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'client/**'
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/frontend-ci.yml'
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: './package-lock.json'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      # Note: Skipping backend lint as there is no backend lint config currently
+        
+      - name: Run tests with coverage
+        run: npm run test -- --coverage
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.TEST_FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.TEST_FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.TEST_FIREBASE_PRIVATE_KEY }}
+          
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: coverage/
+
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run npm audit
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [lint-and-test, security-audit]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: |
+          curl -X POST -d '' ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          
+      - name: Health Check Polling
+        run: |
+          echo "Waiting for deployment to complete and become healthy..."
+          timeout=60
+          interval=5
+          elapsed=0
+          
+          while [ $elapsed -lt $timeout ]; do
+            # curl returns HTTP status code
+            status_code=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.BACKEND_HEALTH_URL }})
+            
+            if [ "$status_code" -eq 200 ]; then
+              echo "✅ Health check passed! Deployment successful."
+              exit 0
+            fi
+            
+            echo "Health check returned $status_code. Retrying in $interval seconds..."
+            sleep $interval
+            elapsed=$((elapsed + interval))
+          done
+          
+          echo "❌ Health check timed out after $timeout seconds."
+          exit 1

@@ -132,17 +132,19 @@ app.use((err, req, res, next) => {
 //  START SERVER
 // ══════════════════════════════════════════════════════════════
 
-app.listen(PORT, () => {
-  console.log(`
-  ╔═══════════════════════════════════════════════════╗
-  ║                                                   ║
-  ║   🚀 NariSetu Eligibility Engine                  ║
-  ║   🌐 Server running on http://localhost:${PORT}      ║
-  ║   📡 POST /api/schemes/match                      ║
-  ║   💚 GET  /api/health                              ║
-  ║                                                   ║
-  ╚═══════════════════════════════════════════════════╝
-  `);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`
+    ╔═══════════════════════════════════════════════════╗
+    ║                                                   ║
+    ║   🚀 NariSetu Eligibility Engine                  ║
+    ║   🌐 Server running on http://localhost:${PORT}      ║
+    ║   📡 POST /api/schemes/match                      ║
+    ║   💚 GET  /api/health                              ║
+    ║                                                   ║
+    ╚═══════════════════════════════════════════════════╝
+    `);
+  });
+}
 
 module.exports = app; // Export for testing

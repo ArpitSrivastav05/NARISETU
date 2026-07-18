@@ -15,6 +15,8 @@
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS_v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+[![Frontend CI/CD](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/frontend-ci.yml)
+[![Backend CI/CD](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/backend-ci.yml)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 **NariSetu** bridges the gap between **women micro-entrepreneurs** and the support ecosystem they deserve — combining **GovTech**, **FinTech**, **AI**, and **EdTech** into one platform.
@@ -506,6 +508,22 @@ VITE_FIREBASE_APP_ID=your_app_id
 ```bash
 npm run dev
 ```
+
+### 4. Running Tests Locally
+
+**Frontend Tests (Vitest & React Testing Library)**
+```bash
+cd client
+npm run test       # Run tests once with coverage
+npm run test:ui    # Open Vitest UI in browser
+```
+
+**Backend Tests (Jest & Supertest)**
+```bash
+# In the root directory
+npm run test
+```
+*Note: Make sure your test Firebase environment variables are set in `.env` if testing the backend locally.*
 
 ---
 
