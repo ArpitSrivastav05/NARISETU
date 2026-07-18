@@ -66,7 +66,11 @@ jobs:
     steps:
       - name: Trigger Render Deploy Hook
         run: |
-          curl -X POST -d '' ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "❌ ERROR: RENDER_DEPLOY_HOOK_URL secret is not set in GitHub repository."
+            exit 1
+          fi
+          curl -X POST -d '' "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
           
       - name: Health Check Polling
         run: |
@@ -74,10 +78,14 @@ jobs:
           timeout=60
           interval=5
           elapsed=0
+          if [ -z "${{ secrets.BACKEND_HEALTH_URL }}" ]; then
+            echo "❌ ERROR: BACKEND_HEALTH_URL secret is not set in GitHub repository."
+            exit 1
+          fi
           
           while [ $elapsed -lt $timeout ]; do
             # curl returns HTTP status code
-            status_code=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.BACKEND_HEALTH_URL }})
+            status_code=$(curl -s -o /dev/null -w "%{http_code}" "${{ secrets.BACKEND_HEALTH_URL }}")
             
             if [ "$status_code" -eq 200 ]; then
               echo "✅ Health check passed! Deployment successful."
