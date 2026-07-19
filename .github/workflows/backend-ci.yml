@@ -65,17 +65,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Render Deploy Hook
+        env:
+          RENDER_HOOK: ${{ secrets.RENDER_HOOK_URL }}
         run: |
-          if [ -z "${{ secrets.RENDER_HOOK_URL }}" ]; then
+          if [ -z "$RENDER_HOOK" ]; then
             echo "❌ ERROR: RENDER_HOOK_URL secret is not set in GitHub repository."
             exit 1
           fi
           echo "Triggering Render deploy..."
-          response=$(curl -s -w "\n%{http_code}" -X POST -d '' "${{ secrets.RENDER_HOOK_URL }}")
-          http_code=$(echo "$response" | tail -n1)
-          body=$(echo "$response" | head -n -1)
-          echo "Response: $body"
+          echo "Hook URL length: ${#RENDER_HOOK} chars"
+          echo "Hook URL starts with: ${RENDER_HOOK:0:30}..."
+          http_code=$(curl -s -o response.txt -w "%{http_code}" "$RENDER_HOOK")
           echo "HTTP Status: $http_code"
+          echo "Response body:"
+          cat response.txt
           if [ "$http_code" -lt 200 ] || [ "$http_code" -ge 300 ]; then
             echo "❌ Deploy hook returned HTTP $http_code"
             exit 1
