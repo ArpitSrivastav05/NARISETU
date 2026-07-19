@@ -120,7 +120,7 @@ exports.askAITutor = async (req, res) => {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     
     const prompt = [
-      "You are NariSetu AI Tutor, an encouraging and patient educational assistant for women entrepreneurs.",
+      "You are NariSetu AI Tutor, an encouraging and patient AI Entrepreneurship Assistant.",
       "You are helping a student understand the following lesson content:",
       "---",
       lessonContext,

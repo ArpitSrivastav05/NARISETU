@@ -57,7 +57,7 @@ export default function LoginPage() {
           <h1 className="text-3xl font-extrabold text-white tracking-tight">
             NariSetu<span className="text-blue-400">.</span>
           </h1>
-          <p className="text-slate-400 text-sm mt-1">Women Empowerment Suite</p>
+          <p className="text-slate-400 text-sm mt-1">AI-Powered Business Growth Platform</p>
         </div>
 
         {/* Card */}
@@ -158,7 +158,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-slate-600 text-xs mt-6">
-          Exclusively for women & girls 🌸
+          Designed with women entrepreneurs in mind. 🌸
         </p>
       </div>
     </div>

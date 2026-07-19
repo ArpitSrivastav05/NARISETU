@@ -20,7 +20,7 @@ export default function Features() {
     },
     {
       title: "Marketplace",
-      description: "Sell products and discover other women-owned businesses in your community.",
+      description: "Sell products and discover other local businesses in your community.",
       icon: <Store size={24} className="text-amber-600" />,
       bg: "bg-amber-100",
       delay: 0.3
@@ -56,7 +56,7 @@ export default function Features() {
             Everything you need to succeed
           </h2>
           <p className="text-lg text-slate-600">
-            Powerful tools designed specifically for women entrepreneurs, all in one easy-to-use platform.
+            Powerful tools designed to help micro and small business owners succeed, all in one easy-to-use platform.
           </p>
         </div>
 

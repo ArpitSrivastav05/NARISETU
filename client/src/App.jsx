@@ -131,7 +131,7 @@ function MainLayout() {
             NariSetu<span className="text-blue-400">.</span>
           </h1>
           <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">
-            Women Empowerment Suite
+            AI Business Growth Platform
           </p>
         </div>
 

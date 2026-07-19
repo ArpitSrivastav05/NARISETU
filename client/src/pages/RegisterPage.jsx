@@ -64,13 +64,13 @@ export default function RegisterPage() {
           <h1 className="text-3xl font-extrabold text-white tracking-tight">
             NariSetu<span className="text-blue-400">.</span>
           </h1>
-          <p className="text-slate-400 text-sm mt-1">Join thousands of women entrepreneurs</p>
+          <p className="text-slate-400 text-sm mt-1">Join thousands of entrepreneurs</p>
         </div>
 
         {/* Card */}
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
           <h2 className="text-xl font-bold text-white mb-1">Create your account</h2>
-          <p className="text-slate-400 text-sm mb-6">Free for all women & girls in India</p>
+          <p className="text-slate-400 text-sm mb-6">Free for all micro and small business owners in India</p>
 
           {error && (
             <div className="mb-5 p-3.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-300 text-sm font-medium flex items-center gap-2">

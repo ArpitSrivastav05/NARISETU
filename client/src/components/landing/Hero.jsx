@@ -23,18 +23,19 @@ export default function Hero() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100/50 border border-purple-200/50 text-purple-700 text-sm font-semibold mb-6">
               <Sparkles size={16} />
-              <span>AI-Powered Platform for Women</span>
+              <span>AI-Powered Entrepreneurship Platform</span>
             </div>
             
             <h1 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]">
-              Empowering Women <br className="hidden lg:block" />
+              Empowering Women. <br className="hidden lg:block" />
+              Enabling Every{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-teal-500">
-                Entrepreneurs
+                Entrepreneur
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              NariSetu helps you discover government schemes, manage finances using AI voice ledger, and grow your business through one intelligent platform.
+              NariSetu is an AI-powered entrepreneurship platform that helps Indian micro and small business owners discover government schemes, manage finances, learn business skills, and grow through intelligent AI tools.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">

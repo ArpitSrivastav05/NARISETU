@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Navbar from '../components/landing/Navbar';
 import Hero from '../components/landing/Hero';
+import Mission from '../components/landing/Mission';
+import About from '../components/landing/About';
 import Features from '../components/landing/Features';
 import HowItWorks from '../components/landing/HowItWorks';
 import PlatformPreview from '../components/landing/PlatformPreview';
@@ -32,6 +34,8 @@ export default function LandingPage() {
       <Navbar />
       <main>
         <Hero />
+        <Mission />
+        <About />
         <Features />
         <HowItWorks />
         <PlatformPreview />

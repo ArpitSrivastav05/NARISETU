@@ -8,7 +8,7 @@ export default function FAQ() {
   const faqs = [
     {
       q: "How does NariSetu work?",
-      a: "NariSetu is an all-in-one platform that uses AI to match you with eligible government schemes, provides a voice-based ledger to manage your finances, and connects you to a marketplace of other women entrepreneurs."
+      a: "NariSetu is an all-in-one platform that uses AI to match you with eligible government schemes, provides a voice-based ledger to manage your finances, and connects you to a marketplace of other entrepreneurs."
     },
     {
       q: "Is it free to use?",
@@ -20,7 +20,11 @@ export default function FAQ() {
     },
     {
       q: "Which government schemes are supported?",
-      a: "We currently support major central and state government schemes designed for women entrepreneurs, such as Mudra Yojana, Stand-Up India, and Mahila Samriddhi Yojana, and constantly update our database."
+      a: "We currently support major central and state government schemes designed for all entrepreneurs, including a special focus on women entrepreneurs, such as Mudra Yojana, Stand-Up India, and Mahila Samriddhi Yojana, and constantly update our database."
+    },
+    {
+      q: "Can men use NariSetu?",
+      a: "Yes. NariSetu is open to every entrepreneur. Features such as AI Business Coach, Marketplace, Voice Ledger, Learning Hub, and Business Dashboard are available to everyone. Government scheme recommendations strictly follow official eligibility rules. Women-specific schemes are shown only to eligible users. Schemes available to all entrepreneurs are shown to everyone who qualifies."
     },
     {
       q: "Can I use the app in Hindi?",

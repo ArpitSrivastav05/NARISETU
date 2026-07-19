@@ -21,7 +21,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-slate-500 mb-6 leading-relaxed">
-              Empowering women entrepreneurs through AI, financial tools, and community support.
+              Empowering entrepreneurs through AI, financial tools, and community support.
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-slate-500 hover:text-white transition-colors">

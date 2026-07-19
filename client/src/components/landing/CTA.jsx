@@ -26,7 +26,7 @@ export default function CTA() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">Business Today</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-            Join the community of women entrepreneurs taking control of their finances and scaling their businesses with AI.
+            Join the community of entrepreneurs taking control of their finances and scaling their businesses with AI.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

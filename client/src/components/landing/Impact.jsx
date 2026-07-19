@@ -41,7 +41,7 @@ export default function Impact() {
     { label: "Government Schemes", value: 150, suffix: "+" },
     { label: "AI Financial Insights", value: 5000, suffix: "+" },
     { label: "Marketplace Listings", value: 1200, suffix: "+" },
-    { label: "Women Empowered", value: 10000, suffix: "+" },
+    { label: "Entrepreneurs Empowered", value: 10000, suffix: "+" },
   ];
 
   return (

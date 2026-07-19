@@ -263,7 +263,7 @@ export default function Marketplace() {
         <div>
           <h2 className="text-3xl font-extrabold tracking-tight">🛒 NariSetu Marketplace</h2>
           <p className="text-slate-300 mt-2 max-w-xl text-sm leading-relaxed">
-            A micro-business directory connecting local women entrepreneurs, artisans, and farmers directly to customers.
+            A micro-business directory connecting local entrepreneurs, artisans, and farmers directly to customers.
           </p>
         </div>
         <div className="flex gap-3 self-start md:self-auto shrink-0">

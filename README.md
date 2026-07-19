@@ -2,7 +2,7 @@
 
 # 🌸 NariSetu
 
-### AI-Powered Women Entrepreneurship Platform
+### AI-Powered Entrepreneurship Platform
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_NariSetu-6D28D9?style=for-the-badge)](https://narisetu-ten.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/ArpitSrivastav05/NARISETU)
@@ -19,7 +19,9 @@
 [![Backend CI/CD](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/ArpitSrivastav05/NARISETU/actions/workflows/backend-ci.yml)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-**NariSetu** bridges the gap between **women micro-entrepreneurs** and the support ecosystem they deserve — combining **GovTech**, **FinTech**, **AI**, and **EdTech** into one platform.
+**NariSetu** is an AI-powered entrepreneurship platform designed to help Indian micro and small business owners grow through intelligent government scheme discovery, AI-driven financial management, business education, and marketplace access.
+
+The platform places a special emphasis on empowering women entrepreneurs by intelligently matching them with women-centric government initiatives while remaining useful for all entrepreneurs.
 
 [Live Demo](https://narisetu-ten.vercel.app/) · [Architecture](#-architecture) · [Features](#-features) · [Tech Stack](#-tech-stack) · [API Overview](#-api-overview) · [Getting Started](#-getting-started)
 
@@ -50,7 +52,7 @@
 
 ## 🌟 Overview
 
-NariSetu is a full-stack AI-powered platform designed to **empower women entrepreneurs in India** by providing:
+NariSetu is a full-stack AI-powered platform designed to **enable every entrepreneur** by providing:
 
 | Capability | What It Does |
 |---|---|
@@ -61,7 +63,7 @@ NariSetu is a full-stack AI-powered platform designed to **empower women entrepr
 | 📚 **EdTech** | Learning Hub with courses, quizzes, certificates, and AI tutoring |
 | 🤖 **AI Coach** | Contextual business advice powered by the user's real financial data |
 
-> Built for the **80M+ women-led micro-enterprises** in India who lack access to digital tools, financial literacy, and government support systems.
+> Built to empower micro-enterprises across India with intelligent tools, financial literacy, and tailored access to government support systems.
 
 ---
 
@@ -625,6 +627,8 @@ Passionate about building AI-powered solutions that create real-world impact thr
 
 ---
 
-<sub>Built with ❤️ for women entrepreneurs across India</sub>
+<div align="center">
+  <sub>Built with ❤️ for every entrepreneur across India</sub>
+</div>
 
 </div>
