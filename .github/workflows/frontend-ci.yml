@@ -92,7 +92,6 @@ jobs:
           path: client/dist/
           
       - name: Deploy to Vercel
-        working-directory: ./client
         run: npx vercel@latest --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
