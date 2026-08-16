@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { Mic, RefreshCw, Square, Bot, Loader2 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -110,43 +111,49 @@ const VoiceLedger = () => {
   });
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white rounded-3xl shadow-md border border-slate-100 mt-8 space-y-6">
-      <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
-        <div>
-          <h2 className="text-xl font-bold text-slate-800">🎙️ AI Voice Ledger</h2>
-          <p className="text-xs text-slate-400 mt-0.5">Log transactions by speaking (Hindi/Hinglish supported).</p>
+    <div className="p-6 sm:p-8 max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 mt-8 space-y-6">
+      <div className="border-b border-slate-100 pb-6 flex justify-between items-start gap-4">
+        <div className="flex gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#B85042]/10 text-[#B85042]">
+            <Mic className="h-6 w-6" strokeWidth={2.5} />
+          </div>
+          <div className="pt-0.5 text-left">
+            <h2 className="text-2xl font-bold text-[#0B192C]">AI Voice Ledger</h2>
+            <p className="text-base text-slate-500 mt-1">Log transactions by speaking (Hindi/Hinglish supported).</p>
+          </div>
         </div>
         <button
           onClick={fetchTransactions}
-          className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-3 py-1.5 rounded-xl transition"
+          className="flex items-center gap-2 text-sm bg-slate-50 hover:bg-slate-100 text-slate-600 font-semibold px-4 py-2 rounded-xl transition border border-slate-200"
         >
-          🔄 Refresh
+          <RefreshCw className="h-4 w-4" />
+          Refresh
         </button>
       </div>
 
       {/* Record button widget */}
-      <div className="flex flex-col items-center justify-center p-6 bg-slate-50/70 border border-slate-100 rounded-2xl">
+      <div className="flex flex-col items-center justify-center p-8 bg-slate-50 border border-slate-200 rounded-2xl">
         <button
           onMouseDown={startRecording}
           onMouseUp={stopRecording}
           onTouchStart={startRecording}
           onTouchEnd={stopRecording}
-          className={`w-20 h-20 rounded-full flex items-center justify-center text-3xl transition-all shadow-lg cursor-pointer ${
+          className={`w-20 h-20 rounded-full flex items-center justify-center transition-all cursor-pointer ${
             isRecording
-              ? "bg-rose-500 animate-pulse text-white scale-110"
-              : "bg-navy-600 text-white hover:bg-navy-700 hover:shadow-navy-600/20"
+              ? "bg-[#B85042] animate-pulse text-white scale-110 shadow-lg shadow-[#B85042]/30"
+              : "bg-[#0B192C] text-white hover:bg-[#0f2441] shadow-md hover:shadow-xl"
           }`}
         >
-          {isRecording ? "⏸" : "🎤"}
+          {isRecording ? <Square className="h-8 w-8" strokeWidth={2.5} /> : <Mic className="h-8 w-8" strokeWidth={2.5} />}
         </button>
-        <p className="mt-4 text-xs text-slate-500 font-medium">
+        <p className="mt-6 text-sm text-slate-600 font-medium">
           {isRecording ? "Recording... Release button to process" : "Hold button & speak (e.g. 'Paanch sau rupiya kharcha')"}
         </p>
       </div>
 
       {isProcessing && (
-        <div className="flex items-center justify-center gap-2 text-sm text-navy-600 font-bold animate-pulse py-2">
-          <span>🤖</span> AI is analyzing your voice...
+        <div className="flex items-center justify-center gap-2 text-base text-[#0B192C] font-semibold animate-pulse py-4">
+          <Bot className="h-5 w-5 text-[#B85042]" /> AI is analyzing your voice...
         </div>
       )}
 
@@ -156,8 +163,8 @@ const VoiceLedger = () => {
           <button
             key={tab}
             onClick={() => setFilterType(tab)}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg uppercase transition tracking-wider ${
-              filterType === tab ? "bg-white text-navy-800 shadow-sm" : "text-slate-400 hover:text-slate-600"
+            className={`flex-1 py-2.5 text-sm font-semibold rounded-xl capitalize transition tracking-wide ${
+              filterType === tab ? "bg-white text-[#0B192C] shadow-sm" : "text-slate-500 hover:text-slate-700"
             }`}
           >
             {tab}
@@ -168,13 +175,13 @@ const VoiceLedger = () => {
       {/* Transaction List */}
       <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
         {isLoadingHistory ? (
-          <div className="text-center py-10">
-            <div className="h-6 w-6 border-2 border-slate-200 border-t-navy-600 rounded-full animate-spin mx-auto"></div>
-            <p className="text-xs text-slate-400 mt-2">Loading transactions...</p>
+          <div className="text-center py-12 flex flex-col items-center justify-center">
+            <Loader2 className="h-8 w-8 text-[#0B192C] animate-spin mb-4" />
+            <p className="text-base text-slate-500">Loading transactions...</p>
           </div>
         ) : filteredTransactions.length === 0 ? (
-          <div className="text-center py-12 text-slate-400 text-xs">
-            💸 No transactions match the selected filter.
+          <div className="text-center py-12 text-slate-500 text-base">
+            No transactions match the selected filter.
           </div>
         ) : (
           filteredTransactions.map((t) => {
@@ -190,21 +197,21 @@ const VoiceLedger = () => {
             return (
               <div
                 key={t.id}
-                className="flex justify-between items-center p-4 rounded-2xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50/20 transition-all"
+                className="flex justify-between items-center p-5 border-b border-slate-100 hover:bg-slate-50/50 transition-all last:border-b-0"
               >
                 <div>
-                  <p className="font-bold text-slate-800 text-sm">{t.description}</p>
-                  <p className="text-[10px] text-slate-400 font-semibold mt-0.5">{dateStr}</p>
+                  <p className="font-bold text-[#0B192C] text-base">{t.description}</p>
+                  <p className="text-xs text-slate-500 font-medium mt-1">{dateStr}</p>
                 </div>
                 <div className="text-right">
-                  <p className={`font-black text-sm ${t.type === "income" ? "text-emerald-600" : "text-rose-600"}`}>
+                  <p className={`font-bold text-lg ${t.type === "income" ? "text-emerald-600" : "text-[#B85042]"}`}>
                     {t.type === "income" ? "+" : "-"} ₹{t.amount}
                   </p>
                   <span
-                    className={`inline-block text-[9px] font-bold uppercase px-2.5 py-0.5 rounded-full mt-1.5 ${
+                    className={`inline-block text-xs font-medium px-2.5 py-0.5 rounded-full mt-1.5 ${
                       t.type === "income"
-                        ? "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/10"
-                        : "bg-rose-50 text-rose-600 ring-1 ring-rose-500/10"
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-[#B85042]/10 text-[#B85042]"
                     }`}
                   >
                     {t.type}

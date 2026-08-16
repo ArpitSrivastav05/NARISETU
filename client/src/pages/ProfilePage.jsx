@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { CheckCircle2, AlertTriangle, Pencil } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -65,21 +66,21 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6 animate-fadeIn max-w-2xl mx-auto">
       {/* Header */}
-      <div className="rounded-3xl bg-gradient-to-r from-navy-800 to-navy-950 p-8 text-white shadow-xl flex items-center gap-6">
+      <div className="rounded-2xl bg-[#0B192C] p-8 text-white shadow-sm flex items-center gap-6">
         <img
           src={avatarSrc}
           alt="Profile"
-          className="w-20 h-20 rounded-2xl object-cover ring-4 ring-white/20 shadow-lg flex-shrink-0"
+          className="w-20 h-20 rounded-full object-cover ring-4 ring-white/10 shadow-sm flex-shrink-0"
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser?.displayName || "NS")}&backgroundColor=e8d5f5,f0e6ff&textColor=7c3aed`;
           }}
         />
         <div>
-          <h2 className="text-2xl font-extrabold tracking-tight">
+          <h2 className="text-2xl font-bold tracking-tight">
             {currentUser?.displayName || userProfile?.name || "Your Profile"}
           </h2>
-          <p className="text-slate-300 text-sm mt-1">{currentUser?.email}</p>
+          <p className="text-slate-300 text-base mt-1 font-medium">{currentUser?.email}</p>
           <span className="inline-block mt-2 bg-white/10 text-white text-xs font-semibold px-3 py-1 rounded-full capitalize">
             {userProfile?.role || "user"}
           </span>
@@ -88,18 +89,18 @@ export default function ProfilePage() {
 
       {/* Feedback */}
       {saveMsg && (
-        <div className="p-3.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl text-sm font-semibold flex items-center gap-2">
-          ✅ {saveMsg}
+        <div className="p-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2">
+          <CheckCircle2 className="h-5 w-5" /> {saveMsg}
         </div>
       )}
       {saveErr && (
-        <div className="p-3.5 bg-rose-50 border border-rose-100 text-rose-600 rounded-2xl text-sm font-semibold flex items-center gap-2">
-          ⚠️ {saveErr}
+        <div className="p-4 bg-[#B85042]/10 border border-[#B85042]/20 text-[#B85042] rounded-2xl text-sm font-medium flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5" /> {saveErr}
         </div>
       )}
 
       {/* Profile Card */}
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-bold text-slate-800">Personal Information</h3>
           {!isEditing && (
@@ -117,9 +118,9 @@ export default function ProfilePage() {
                 setSaveMsg("");
                 setSaveErr("");
               }}
-              className="text-xs font-bold text-blue-600 border border-blue-200 hover:bg-blue-50 px-4 py-2 rounded-xl transition"
+              className="flex items-center gap-2 text-sm font-semibold text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-xl transition"
             >
-              ✏️ Edit Profile
+              <Pencil className="h-4 w-4" /> Edit Profile
             </button>
           )}
         </div>
@@ -132,7 +133,7 @@ export default function ProfilePage() {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C]"
               />
             </div>
             <div className="space-y-1.5">
@@ -142,7 +143,7 @@ export default function ProfilePage() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="10-digit mobile"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C]"
               />
             </div>
             <div className="space-y-1.5">
@@ -152,7 +153,7 @@ export default function ProfilePage() {
                 value={form.location}
                 onChange={handleChange}
                 placeholder="e.g. Varanasi"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C]"
               />
             </div>
             <div className="space-y-1.5">
@@ -161,7 +162,7 @@ export default function ProfilePage() {
                 name="state"
                 value={form.state}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] cursor-pointer"
               >
                 <option value="">Select state</option>
                 {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -173,7 +174,7 @@ export default function ProfilePage() {
                 name="businessCategory"
                 value={form.businessCategory}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] cursor-pointer"
               >
                 <option value="">Not applicable</option>
                 <option value="handloom">Handloom & Textiles</option>
@@ -191,7 +192,7 @@ export default function ProfilePage() {
                 name="role"
                 value={form.role}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0B192C] cursor-pointer"
               >
                 <option value="buyer">Buyer / User (Explore schemes & market)</option>
                 <option value="seller">Seller / Artisan (Register business & list products)</option>
@@ -203,7 +204,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={isSaving}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-sm transition disabled:opacity-60 cursor-pointer"
+                className="flex-1 bg-[#0B192C] hover:bg-[#0f2441] text-white font-bold py-3 rounded-xl text-sm transition disabled:opacity-60 cursor-pointer"
               >
                 {isSaving ? "Saving…" : "Save Changes"}
               </button>
