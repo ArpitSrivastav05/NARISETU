@@ -23,7 +23,7 @@ export default function QuizCard({ quiz, onSubmit, onFinish }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-8 bg-slate-900 text-white">
         <h2 className="text-2xl font-extrabold mb-2">Knowledge Check</h2>
         <p className="text-slate-400">Test what you've learned in this module.</p>
@@ -39,8 +39,8 @@ export default function QuizCard({ quiz, onSubmit, onFinish }) {
                 const isCorrect = q.correctIndex === oIndex;
                 const showStatus = submitted;
                 
-                let ringClass = "border-slate-200 hover:border-purple-300 hover:bg-purple-50";
-                if (isSelected) ringClass = "border-purple-500 bg-purple-50 ring-1 ring-purple-500";
+                let ringClass = "border-slate-200 hover:border-[#B85042]/40 hover:bg-[#B85042]/5";
+                if (isSelected) ringClass = "border-[#B85042] bg-[#B85042]/5 ring-1 ring-[#B85042]";
                 
                 if (showStatus) {
                   if (isCorrect) ringClass = "border-teal-500 bg-teal-50 text-teal-900";
@@ -88,7 +88,7 @@ export default function QuizCard({ quiz, onSubmit, onFinish }) {
           <button 
             onClick={handleSubmit}
             disabled={Object.keys(answers).length < quiz.questions.length}
-            className="ml-auto px-6 py-2.5 rounded-xl font-bold bg-purple-600 text-white hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="ml-auto px-6 py-2.5 rounded-xl font-bold bg-[#B85042] text-white hover:bg-[#9d4438] transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Submit Answers
           </button>

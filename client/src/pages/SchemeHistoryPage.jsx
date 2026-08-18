@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import ResultsList from "../components/ResultsList";
+import { ClipboardList, Bookmark, FileSearch, RefreshCw } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "https://narisetu-j9ac.onrender.com";
 
@@ -80,20 +81,27 @@ export default function SchemeHistoryPage() {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      {/* Header */}
-      <div className="rounded-3xl bg-gradient-to-r from-navy-800 to-navy-950 p-8 text-white shadow-xl">
-        <h2 className="text-3xl font-extrabold tracking-tight">📋 Scheme Workspace</h2>
-        <p className="text-slate-300 mt-2 text-sm">
-          Manage your saved schemes and review past eligibility searches.
-        </p>
+      {/* Header — hero element */}
+      <div className="rounded-[2rem] bg-[#0B192C] p-8 text-white shadow-sm">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-white">
+            <ClipboardList className="h-6 w-6" strokeWidth={2.5} />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Scheme Workspace</h2>
+            <p className="text-slate-300 mt-1 text-base">
+              Manage your saved schemes and review past eligibility searches.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Tabs */}
       <div className="flex border-b border-slate-200">
         <button
-          className={`py-3 px-6 text-sm font-bold border-b-2 transition-colors ${
+          className={`py-3 px-6 text-base font-bold border-b-2 transition-colors min-h-[48px] ${
             activeTab === "saved"
-              ? "border-blue-600 text-blue-700"
+              ? "border-[#B85042] text-[#B85042]"
               : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
           }`}
           onClick={() => setActiveTab("saved")}
@@ -101,9 +109,9 @@ export default function SchemeHistoryPage() {
           Saved Schemes ({savedSchemes.length})
         </button>
         <button
-          className={`py-3 px-6 text-sm font-bold border-b-2 transition-colors ${
+          className={`py-3 px-6 text-base font-bold border-b-2 transition-colors min-h-[48px] ${
             activeTab === "history"
-              ? "border-blue-600 text-blue-700"
+              ? "border-[#B85042] text-[#B85042]"
               : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300"
           }`}
           onClick={() => setActiveTab("history")}
@@ -115,22 +123,24 @@ export default function SchemeHistoryPage() {
       {/* Content */}
       {isLoading ? (
         <div className="text-center py-20">
-          <div className="h-10 w-10 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-slate-500 mt-4 font-semibold">Loading your workspace…</p>
+          <RefreshCw className="h-10 w-10 text-[#B85042] animate-spin mx-auto" />
+          <p className="text-base text-slate-500 mt-4 font-semibold">Loading your workspace…</p>
         </div>
       ) : error ? (
-        <div className="bg-rose-50 border border-rose-100 rounded-2xl p-6 text-center">
-          <p className="text-rose-600 font-bold">Failed to load workspace data</p>
-          <p className="text-xs text-rose-500 mt-1">{error}</p>
+        <div className="bg-red-50 border border-red-100 rounded-2xl p-6 text-center">
+          <p className="text-red-700 font-bold text-base">Failed to load workspace data</p>
+          <p className="text-base text-red-500 mt-1">{error}</p>
         </div>
       ) : (
         <div className="pt-2">
           {activeTab === "saved" ? (
             savedSchemes.length === 0 ? (
-              <div className="text-center py-20 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl">
-                <span className="text-4xl">🔖</span>
-                <h3 className="text-slate-700 font-bold mt-4">No Saved Schemes</h3>
-                <p className="text-xs text-slate-400 mt-2 max-w-sm mx-auto">
+              <div className="text-center py-20 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#B85042]/10">
+                  <Bookmark className="h-8 w-8 text-[#B85042]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-[#0B192C] font-bold mt-4 text-lg">No Saved Schemes</h3>
+                <p className="text-base text-slate-500 mt-2 max-w-sm mx-auto">
                   Bookmark schemes from the eligibility results to save them here for quick access later.
                 </p>
               </div>
@@ -144,10 +154,12 @@ export default function SchemeHistoryPage() {
             )
           ) : (
             history.length === 0 ? (
-              <div className="text-center py-20 bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl">
-                <span className="text-4xl">📄</span>
-                <h3 className="text-slate-700 font-bold mt-4">No Search History</h3>
-                <p className="text-xs text-slate-400 mt-2 max-w-sm mx-auto">
+              <div className="text-center py-20 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#B85042]/10">
+                  <FileSearch className="h-8 w-8 text-[#B85042]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-[#0B192C] font-bold mt-4 text-lg">No Search History</h3>
+                <p className="text-base text-slate-500 mt-2 max-w-sm mx-auto">
                   Run the eligibility engine from the Schemes tab to see your search results saved here.
                 </p>
               </div>
@@ -164,12 +176,12 @@ export default function SchemeHistoryPage() {
                   return (
                     <div
                       key={item.id}
-                      className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md hover:border-slate-200 transition-all"
+                      className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-slate-300 transition-all"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
-                          <p className="text-xs text-slate-400 font-semibold">{dateStr}</p>
-                          <h3 className="font-bold text-slate-800 mt-1">
+                          <p className="text-sm text-slate-400 font-semibold">{dateStr}</p>
+                          <h3 className="font-bold text-[#0B192C] mt-1 text-base">
                             {item.matchCount} scheme{item.matchCount !== 1 ? "s" : ""} matched
                           </h3>
                         </div>
@@ -177,7 +189,7 @@ export default function SchemeHistoryPage() {
                           {(item.topSchemeNames || []).slice(0, 3).map((name, i) => (
                             <span
                               key={i}
-                              className="text-[10px] font-semibold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full border border-blue-100"
+                              className="text-xs font-semibold bg-[#B85042]/10 text-[#B85042] px-2.5 py-1 rounded-full"
                             >
                               {name}
                             </span>
@@ -195,8 +207,8 @@ export default function SchemeHistoryPage() {
                             { label: "Category", value: item.formPayload.caste_category?.toUpperCase() },
                           ].filter(f => f.value).map(({ label, value }) => (
                             <div key={label}>
-                              <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">{label}</p>
-                              <p className="text-xs font-bold text-slate-700 mt-0.5 capitalize">{value}</p>
+                              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{label}</p>
+                              <p className="text-sm font-bold text-[#0B192C] mt-0.5 capitalize">{value}</p>
                             </div>
                           ))}
                         </div>

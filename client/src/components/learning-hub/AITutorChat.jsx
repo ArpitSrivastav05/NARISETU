@@ -47,14 +47,14 @@ export default function AITutorChat({ lessonContext, language }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[500px]">
-      <div className="px-6 py-4 bg-purple-50 border-b border-purple-100 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center text-purple-700">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[500px]">
+      <div className="px-6 py-4 bg-[#B85042]/5 border-b border-[#B85042]/10 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-[#B85042]/10 flex items-center justify-center text-[#B85042]">
           <Sparkles size={20} />
         </div>
         <div>
-          <h3 className="font-bold text-purple-900">AI Tutor</h3>
-          <p className="text-xs text-purple-600 font-medium">Ask questions about this lesson</p>
+          <h3 className="font-bold text-[#0B192C]">AI Tutor</h3>
+          <p className="text-xs text-[#B85042] font-medium">Ask questions about this lesson</p>
         </div>
       </div>
       
@@ -85,12 +85,12 @@ export default function AITutorChat({ lessonContext, language }) {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Type your question..."
-            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className="flex-1 bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#B85042]/30 transition"
           />
           <button 
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 transition"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-[#B85042] text-white rounded-lg hover:bg-[#9d4438] disabled:opacity-50 transition"
           >
             <Send size={16} />
           </button>

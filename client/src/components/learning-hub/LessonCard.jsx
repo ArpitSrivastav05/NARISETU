@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
 export default function LessonCard({ lesson, onNext, onPrev, isLast, onComplete, hasCompleted }) {
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-full">
       <div className="p-8 flex-1 overflow-y-auto">
         <h2 className="text-2xl font-extrabold text-slate-900 mb-6">{lesson.title}</h2>
         <div className="prose prose-slate max-w-none prose-p:leading-relaxed prose-p:text-slate-600">
@@ -26,7 +26,7 @@ export default function LessonCard({ lesson, onNext, onPrev, isLast, onComplete,
             if (!hasCompleted) onComplete(lesson.id);
             onNext();
           }}
-          className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white transition shadow-sm hover:shadow-md active:scale-95 ${hasCompleted ? 'bg-slate-800' : 'bg-purple-600 hover:bg-purple-700'}`}
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-white transition shadow-sm hover:shadow-md active:scale-95 ${hasCompleted ? 'bg-slate-800' : 'bg-[#B85042] hover:bg-[#9d4438]'}`}
         >
           {isLast ? (
             <>Take Quiz <ArrowRight size={18} /></>

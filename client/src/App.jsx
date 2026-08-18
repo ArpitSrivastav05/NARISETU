@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import {
+  Brain, Search, Mic, BarChart3, Bot, ShoppingBag,
+  ClipboardList, User, GraduationCap, Menu, X, LogOut, FileSearch
+} from 'lucide-react';
 
 // Auth
 import { useAuth } from './contexts/AuthContext';
@@ -105,15 +109,15 @@ function MainLayout() {
   };
 
   const navItems = [
-    { id: 'home',      label: '🧠 Intelligence' },
-    { id: 'schemes',   label: '🔎 Find Schemes' },
-    { id: 'ledger',    label: '🎙️ Voice Ledger' },
-    { id: 'dashboard', label: '📈 Data Dashboard' },
-    { id: 'coach',     label: '🤖 AI Coach' },
-    { id: 'market',    label: '🛒 Marketplace' },
-    { id: 'history',   label: '📋 Scheme History' },
-    { id: 'profile',   label: '👤 Profile' },
-    { id: 'learning',  label: '📚 Learning Hub' },
+    { id: 'home',      label: 'Intelligence',    icon: Brain },
+    { id: 'schemes',   label: 'Find Schemes',    icon: Search },
+    { id: 'ledger',    label: 'Voice Ledger',     icon: Mic },
+    { id: 'dashboard', label: 'Data Dashboard',   icon: BarChart3 },
+    { id: 'coach',     label: 'AI Coach',         icon: Bot },
+    { id: 'market',    label: 'Marketplace',      icon: ShoppingBag },
+    { id: 'history',   label: 'Scheme History',   icon: ClipboardList },
+    { id: 'profile',   label: 'Profile',          icon: User },
+    { id: 'learning',  label: 'Learning Hub',     icon: GraduationCap },
   ];
 
   const avatarSrc =
@@ -125,10 +129,10 @@ function MainLayout() {
   return (
     <div className="flex h-screen bg-slate-50 font-sans overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 text-white flex-col shadow-xl hidden md:flex shrink-0">
-        <div className="p-6 border-b border-slate-800">
+      <aside className="w-64 bg-[#0B192C] text-white flex-col shadow-xl hidden md:flex shrink-0">
+        <div className="p-6 border-b border-white/10">
           <h1 className="text-2xl font-bold tracking-tight">
-            NariSetu<span className="text-blue-400">.</span>
+            NariSetu<span className="text-[#B85042]">.</span>
           </h1>
           <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">
             AI Business Growth Platform
@@ -136,45 +140,50 @@ function MainLayout() {
         </div>
 
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center px-4 py-3 rounded-lg transition-all text-left text-sm ${
-                activeTab === item.id
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-              }`}
-            >
-              <span className="font-medium">{item.label}</span>
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const NavIcon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-3 px-4 min-h-[48px] rounded-xl transition-all text-left ${
+                  activeTab === item.id
+                    ? 'bg-[#B85042] text-white shadow-md'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <NavIcon className="h-5 w-5 shrink-0" strokeWidth={2} />
+                <span className="text-base font-medium">{item.label}</span>
+              </button>
+            );
+          })}
         </nav>
 
         {/* User card at bottom */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-white/10">
           <div className="flex items-center space-x-3 mb-3">
             <img
               src={avatarSrc}
               alt="Profile"
-              className="w-9 h-9 rounded-full object-cover ring-2 ring-slate-700 flex-shrink-0"
+              className="w-9 h-9 rounded-full object-cover ring-2 ring-white/20 flex-shrink-0"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser?.displayName || 'NS')}&backgroundColor=e8d5f5,f0e6ff&textColor=7c3aed`;
               }}
             />
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-white truncate">
+              <p className="text-base font-semibold text-white truncate">
                 {currentUser?.displayName || userProfile?.name || 'User'}
               </p>
-              <p className="text-xs text-slate-400 truncate">{currentUser?.email}</p>
+              <p className="text-sm text-slate-400 truncate">{currentUser?.email}</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="w-full text-xs text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-slate-700 hover:border-rose-500/30 font-semibold py-2 px-3 rounded-lg transition cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 min-h-[48px] text-sm text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/10 hover:border-rose-500/30 font-semibold rounded-xl transition cursor-pointer"
           >
-            🚪 Sign Out
+            <LogOut className="h-4 w-4" strokeWidth={2.5} />
+            Sign Out
           </button>
         </div>
       </aside>
@@ -182,38 +191,43 @@ function MainLayout() {
       {/* Main content */}
       <main className="flex-1 overflow-y-auto">
         {/* Mobile header */}
-        <div className="md:hidden bg-slate-900 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-30">
-          <h1 className="text-xl font-bold">NariSetu<span className="text-blue-400">.</span></h1>
+        <div className="md:hidden bg-[#0B192C] text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-30">
+          <h1 className="text-xl font-bold">NariSetu<span className="text-[#B85042]">.</span></h1>
           <div className="flex items-center gap-2">
             <img src={avatarSrc} alt="" className="w-8 h-8 rounded-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(currentUser?.displayName || 'NS')}&backgroundColor=e8d5f5,f0e6ff&textColor=7c3aed`; }} />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg bg-slate-800 text-slate-300"
+              className="p-2 rounded-xl bg-white/10 text-slate-300 min-h-[48px] min-w-[48px] flex items-center justify-center"
             >
-              {isMobileMenuOpen ? '✕' : '☰'}
+              {isMobileMenuOpen ? <X className="h-5 w-5" strokeWidth={2.5} /> : <Menu className="h-5 w-5" strokeWidth={2.5} />}
             </button>
           </div>
         </div>
 
         {/* Mobile nav drawer */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-slate-800 border-b border-slate-700 px-4 pb-3 space-y-1 z-20">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => { setActiveTab(item.id); setIsMobileMenuOpen(false); }}
-                className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition ${
-                  activeTab === item.id ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-700'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="md:hidden bg-[#0B192C] border-b border-white/10 px-4 pb-3 space-y-1 z-20">
+            {navItems.map((item) => {
+              const NavIcon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => { setActiveTab(item.id); setIsMobileMenuOpen(false); }}
+                  className={`w-full flex items-center gap-3 text-left px-4 min-h-[48px] rounded-xl text-base font-medium transition ${
+                    activeTab === item.id ? 'bg-[#B85042] text-white' : 'text-slate-300 hover:bg-white/5'
+                  }`}
+                >
+                  <NavIcon className="h-5 w-5 shrink-0" strokeWidth={2} />
+                  {item.label}
+                </button>
+              );
+            })}
             <button
               onClick={handleLogout}
-              className="w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-rose-400 hover:bg-rose-500/10 transition"
+              className="w-full flex items-center gap-3 text-left px-4 min-h-[48px] rounded-xl text-base font-medium text-rose-400 hover:bg-rose-500/10 transition"
             >
-              🚪 Sign Out
+              <LogOut className="h-5 w-5" strokeWidth={2} />
+              Sign Out
             </button>
           </div>
         )}
@@ -223,18 +237,18 @@ function MainLayout() {
           {activeTab === 'schemes' && (
             <div className="grid gap-10 lg:grid-cols-5">
               <div className="lg:col-span-2">
-                <div className="rounded-3xl border border-gray-100 bg-white p-7 shadow-lg">
+                <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
                   <SchemeForm onSubmit={handleSubmit} isLoading={isLoading} />
                 </div>
               </div>
               <div className="lg:col-span-3">
                 {!results && !isLoading ? (
-                  <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-gray-200 py-28 text-center bg-white/50">
-                    <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-50">
-                      <span className="text-3xl">📄</span>
+                  <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 py-28 text-center bg-white/50">
+                    <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#B85042]/10">
+                      <FileSearch className="h-8 w-8 text-[#B85042]" strokeWidth={2} />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-700">Your Results Will Appear Here</h3>
-                    <p className="mt-2 max-w-sm text-sm text-slate-500">
+                    <h3 className="text-lg font-bold text-[#0B192C]">Your Results Will Appear Here</h3>
+                    <p className="mt-2 max-w-sm text-base text-slate-500">
                       Fill in the eligibility form and click "Find Eligible Schemes" to see matching government schemes.
                     </p>
                   </div>

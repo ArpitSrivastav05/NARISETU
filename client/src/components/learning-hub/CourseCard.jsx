@@ -19,7 +19,7 @@ export default function CourseCard({ course, progress, onSelect }) {
     >
       <div className="p-6 flex-1 flex flex-col">
         <div className="flex justify-between items-start mb-4">
-          <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold uppercase rounded-full tracking-wider">
+          <span className="px-3 py-1 bg-[#B85042]/10 text-[#B85042] text-xs font-bold uppercase rounded-full tracking-wider">
             {course.category}
           </span>
           {isCompleted && (
@@ -39,7 +39,7 @@ export default function CourseCard({ course, progress, onSelect }) {
           </div>
           <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
             <div 
-              className={`h-full ${isCompleted ? 'bg-teal-500' : 'bg-purple-600'} transition-all`}
+              className={`h-full ${isCompleted ? 'bg-teal-500' : 'bg-[#B85042]'} transition-all`}
               style={{ width: `${percentComplete}%` }}
             />
           </div>
@@ -49,7 +49,7 @@ export default function CourseCard({ course, progress, onSelect }) {
         <span className="text-sm font-semibold text-slate-700">
           {percentComplete > 0 && !isCompleted ? 'Continue Learning' : isCompleted ? 'Review Course' : 'Start Course'}
         </span>
-        <PlayCircle size={20} className={percentComplete > 0 && !isCompleted ? 'text-purple-600' : 'text-slate-400'} />
+        <PlayCircle size={20} className={percentComplete > 0 && !isCompleted ? 'text-[#B85042]' : 'text-slate-400'} />
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-purple-500/30">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-[#B85042]/30">
       <Navbar />
       <main>
         <Hero />

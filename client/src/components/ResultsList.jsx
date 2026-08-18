@@ -10,8 +10,8 @@ function ScoreBadge({ score }) {
     <div
       className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-bold shadow-sm ${
         isHigh
-          ? "bg-success-500/10 text-success-600 ring-1 ring-success-500/20"
-          : "bg-saffron-500/10 text-saffron-500 ring-1 ring-saffron-500/20"
+          ? "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200"
+          : "bg-amber-50 text-amber-600 ring-1 ring-amber-200"
       }`}
       title={`Match Score: ${score}%`}
     >
@@ -47,16 +47,16 @@ function BenefitTag({ benefits }) {
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs">
-      <span className="flex items-center rounded-lg bg-navy-50 px-2.5 py-1 font-medium text-navy-600 ring-1 ring-navy-100">
+      <span className="flex items-center rounded-lg bg-slate-100 px-2.5 py-1 font-medium text-[#0B192C] ring-1 ring-slate-200">
         {Icon} {label}
       </span>
       {amount && (
-        <span className="rounded-lg bg-success-500/8 px-2.5 py-1 font-bold text-success-600 ring-1 ring-success-500/15">
+        <span className="rounded-lg bg-emerald-50 px-2.5 py-1 font-bold text-emerald-600 ring-1 ring-emerald-200">
           {amount}
         </span>
       )}
       {benefits.frequency && benefits.frequency !== "one_time" && (
-        <span className="rounded-lg bg-saffron-500/8 px-2.5 py-1 font-medium text-saffron-500 ring-1 ring-saffron-400/15">
+        <span className="rounded-lg bg-amber-50 px-2.5 py-1 font-medium text-amber-600 ring-1 ring-amber-200">
           {benefits.frequency.replace(/_/g, " ")}
         </span>
       )}
@@ -67,22 +67,22 @@ function BenefitTag({ benefits }) {
 function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
   return (
     <div
-      className="group relative overflow-hidden rounded-2xl border border-navy-100/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-navy-500/8 hover:border-navy-200 hover:-translate-y-0.5"
+      className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-300 hover:-translate-y-0.5"
       style={{ animationDelay: `${index * 80}ms` }}
       id={`scheme-card-${scheme.scheme_id}`}
     >
       {/* Top row: Ministry + Score */}
       <div className="mb-3 flex items-start justify-between gap-3">
-        <span className="rounded-lg bg-navy-50 px-2.5 py-1 text-xs font-semibold text-navy-500 ring-1 ring-navy-100">
+        <span className="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
           {scheme.ministry}
         </span>
         <div className="flex items-center gap-2">
           <button
             onClick={() => onToggleBookmark && onToggleBookmark(scheme.scheme_id)}
-            className={`p-1.5 rounded-full transition-colors ${
+            className={`p-1.5 rounded-full transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center ${
               isSaved
-                ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                : "bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+                ? "bg-[#B85042]/10 text-[#B85042] hover:bg-[#B85042]/20"
+                : "bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600"
             }`}
             title={isSaved ? "Remove from Saved" : "Save Scheme"}
           >
@@ -93,12 +93,12 @@ function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
       </div>
 
       {/* Title */}
-      <h3 className="mb-2 text-lg font-bold leading-snug text-navy-800 group-hover:text-navy-600 transition-colors">
+      <h3 className="mb-2 text-lg font-bold leading-snug text-[#0B192C] group-hover:text-[#B85042] transition-colors">
         {scheme.scheme_name}
       </h3>
 
       {/* Description */}
-      <p className="mb-4 text-sm leading-relaxed text-navy-400 line-clamp-3">
+      <p className="mb-4 text-base leading-relaxed text-slate-500 line-clamp-3">
         {scheme.description}
       </p>
 
@@ -111,7 +111,7 @@ function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
           {scheme.matched_criteria.map((c) => (
             <span
               key={c}
-              className="rounded-full bg-success-500/8 px-2 py-0.5 text-[11px] font-medium text-success-600"
+              className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-600"
             >
               ✓ {c.replace(/_/g, " ")}
             </span>
@@ -119,7 +119,7 @@ function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
           {scheme.unmatched_criteria?.map((c) => (
             <span
               key={c}
-              className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-400"
+              className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-medium text-red-400"
             >
               ✗ {c.replace(/_/g, " ")}
             </span>
@@ -133,7 +133,7 @@ function SchemeCard({ scheme, index, isSaved, onToggleBookmark }) {
           href={scheme.scheme_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-navy-50 px-4 py-2 text-sm font-semibold text-navy-600 ring-1 ring-navy-100 transition-all hover:bg-navy-100 hover:text-navy-700"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-slate-100 px-4 min-h-[40px] text-base font-semibold text-[#0B192C] ring-1 ring-slate-200 transition-all hover:bg-slate-200"
         >
           Learn More
           <ExternalLink className="h-3.5 w-3.5" strokeWidth={2.5} />
@@ -149,13 +149,13 @@ export default function ResultsList({ data, isLoading, savedSchemes = [], onTogg
     return (
       <div className="flex flex-col items-center justify-center py-20" id="loading-spinner">
         <div className="relative">
-          <div className="h-16 w-16 rounded-full border-4 border-navy-100" />
-          <div className="absolute left-0 top-0 h-16 w-16 animate-spin rounded-full border-4 border-transparent border-t-navy-500" />
+          <div className="h-16 w-16 rounded-full border-4 border-slate-100" />
+          <div className="absolute left-0 top-0 h-16 w-16 animate-spin rounded-full border-4 border-transparent border-t-[#B85042]" />
         </div>
-        <p className="mt-5 text-sm font-semibold text-navy-500 animate-pulse">
+        <p className="mt-5 text-base font-semibold text-[#0B192C] animate-pulse">
           Evaluating schemes…
         </p>
-        <p className="mt-1 text-xs text-navy-300">
+        <p className="mt-1 text-base text-slate-500">
           Our engine is matching your profile against government schemes
         </p>
       </div>
@@ -172,12 +172,12 @@ export default function ResultsList({ data, isLoading, savedSchemes = [], onTogg
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
           <AlertCircle className="h-6 w-6 text-red-500" strokeWidth={2} />
         </div>
-        <h3 className="font-bold text-red-700">Something went wrong</h3>
-        <p className="mt-1 text-sm text-red-500">
+        <h3 className="font-bold text-red-700 text-base">Something went wrong</h3>
+        <p className="mt-1 text-base text-red-500">
           {data.error || "Unable to fetch results. Please try again."}
         </p>
         {data.validation_errors && (
-          <ul className="mt-3 space-y-1 text-left text-sm text-red-600">
+          <ul className="mt-3 space-y-1 text-left text-base text-red-600">
             {data.validation_errors.map((err, i) => (
               <li key={i} className="before:content-['•'] before:mr-2 before:text-red-400">
                 {err}
@@ -192,12 +192,12 @@ export default function ResultsList({ data, isLoading, savedSchemes = [], onTogg
   // ── No matches ─────────────────────────────────────────
   if (!data.top_matches || data.top_matches.length === 0) {
     return (
-      <div className="rounded-2xl border border-navy-100 bg-navy-50/50 p-10 text-center" id="no-results">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-navy-100">
-          <FileSearch className="h-8 w-8 text-navy-400" strokeWidth={1.5} />
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-10 text-center" id="no-results">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#B85042]/10">
+          <FileSearch className="h-8 w-8 text-[#B85042]" strokeWidth={1.5} />
         </div>
-        <h3 className="text-lg font-bold text-navy-700">No Matching Schemes</h3>
-        <p className="mt-2 text-sm text-navy-400 max-w-md mx-auto">
+        <h3 className="text-lg font-bold text-[#0B192C]">No Matching Schemes</h3>
+        <p className="mt-2 text-base text-slate-500 max-w-md mx-auto">
           We couldn't find any schemes matching your profile. Try adjusting your details — particularly income, state, or employment type.
         </p>
       </div>
@@ -218,8 +218,8 @@ export default function ResultsList({ data, isLoading, savedSchemes = [], onTogg
               Eligible Schemes
             </h2>
             <p className="text-base text-slate-500 mt-1">
-              Showing <span className="font-semibold text-navy-600">{data.results_returned}</span> of{" "}
-              <span className="font-semibold text-navy-600">{data.total_schemes_evaluated}</span> schemes
+              Showing <span className="font-semibold text-[#0B192C]">{data.results_returned}</span> of{" "}
+              <span className="font-semibold text-[#0B192C]">{data.total_schemes_evaluated}</span> schemes
               evaluated
             </p>
           </div>
@@ -227,10 +227,10 @@ export default function ResultsList({ data, isLoading, savedSchemes = [], onTogg
 
         {/* Stats chips */}
         <div className="flex gap-2">
-          <span className="rounded-full bg-success-500/10 px-3 py-1 text-xs font-semibold text-success-600">
+          <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-600">
             {data.passed_strict_filters} passed filters
           </span>
-          <span className="rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-500 ring-1 ring-navy-100">
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600 ring-1 ring-slate-200">
             {data.matches_found} matches
           </span>
         </div>

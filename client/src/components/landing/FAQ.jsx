@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
 export default function FAQ() {
+  const shouldReduceMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
@@ -33,13 +34,19 @@ export default function FAQ() {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 bg-slate-50">
+      <motion.div 
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0B192C] mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base md:text-lg text-slate-600">
             Everything you need to know about the platform.
           </p>
         </div>
@@ -52,11 +59,13 @@ export default function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
-                className="w-full text-left px-6 py-5 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                className="w-full text-left px-6 py-5 flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B85042]"
               >
-                <span className="font-semibold text-slate-900 pr-4">{faq.q}</span>
+                <span className={`font-semibold pr-4 transition-colors ${openIndex === index ? 'text-[#B85042]' : 'text-[#0B192C]'}`}>
+                  {faq.q}
+                </span>
                 <ChevronDown 
-                  className={`text-slate-400 transition-transform duration-300 shrink-0 ${openIndex === index ? 'rotate-180 text-purple-600' : ''}`} 
+                  className={`text-slate-400 transition-transform duration-300 shrink-0 ${openIndex === index ? 'rotate-180 text-[#B85042]' : ''}`} 
                   size={20} 
                 />
               </button>
@@ -67,7 +76,7 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
                   >
                     <div className="px-6 pb-5 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
                       {faq.a}
@@ -78,7 +87,7 @@ export default function FAQ() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

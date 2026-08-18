@@ -6,8 +6,8 @@ export default function ProgressCard({ totalCourses, progress }) {
   const inProgressCount = Object.values(progress).filter(p => p.completedLessons?.length > 0 && !p.certificateId).length;
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
+    <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#B85042]/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2" />
       
       <div className="relative z-10 grid md:grid-cols-3 gap-8">
         <div>
@@ -32,8 +32,8 @@ export default function ProgressCard({ totalCourses, progress }) {
         </div>
 
         <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-          <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-            <Zap className="text-purple-400" size={24} />
+          <div className="w-12 h-12 rounded-full bg-[#B85042]/20 flex items-center justify-center">
+            <Zap className="text-[#B85042]" size={24} />
           </div>
           <div>
             <div className="text-3xl font-black text-white">{totalCourses}</div>

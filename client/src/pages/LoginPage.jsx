@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { Landmark, AlertTriangle } from "lucide-react";
 
 export default function LoginPage() {
   const { signIn, signInWithGoogle } = useAuth();
@@ -47,28 +48,28 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-2xl shadow-blue-500/30 mb-4">
-            <span className="text-3xl">🌸</span>
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#B85042]/10 mb-4">
+            <Landmark className="h-7 w-7 text-[#B85042]" strokeWidth={2.5} />
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            NariSetu<span className="text-blue-400">.</span>
+          <h1 className="text-3xl font-bold text-[#0B192C] tracking-tight">
+            NariSetu<span className="text-[#B85042]">.</span>
           </h1>
-          <p className="text-slate-400 text-sm mt-1">AI-Powered Business Growth Platform</p>
+          <p className="text-slate-500 text-base mt-1">AI-Powered Business Growth Platform</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-          <h2 className="text-xl font-bold text-white mb-1">Welcome back</h2>
-          <p className="text-slate-400 text-sm mb-6">Sign in to continue to your dashboard</p>
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+          <h2 className="text-xl font-bold text-[#0B192C] mb-1">Welcome back</h2>
+          <p className="text-slate-500 text-base mb-6">Sign in to continue to your dashboard</p>
 
           {/* Error */}
           {error && (
-            <div className="mb-5 p-3.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-300 text-sm font-medium flex items-center gap-2">
-              <span>⚠️</span> {error}
+            <div className="mb-5 p-4 bg-red-50 border border-red-100 rounded-xl text-red-700 text-base font-medium flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 shrink-0" strokeWidth={2.5} /> {error}
             </div>
           )}
 
@@ -76,10 +77,10 @@ export default function LoginPage() {
           <button
             onClick={handleGoogleLogin}
             disabled={isGoogleLoading || isLoading}
-            className="w-full flex items-center justify-center gap-3 bg-white text-slate-800 font-semibold py-3 px-4 rounded-xl text-sm hover:bg-slate-50 transition active:scale-95 disabled:opacity-60 shadow-lg mb-5 cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 bg-white text-[#0B192C] font-semibold min-h-[48px] px-4 rounded-xl text-base hover:bg-slate-50 transition active:scale-[0.98] disabled:opacity-60 shadow-sm border border-slate-200 mb-5 cursor-pointer"
           >
             {isGoogleLoading ? (
-              <span className="h-4 w-4 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin" />
+              <span className="h-5 w-5 border-2 border-slate-300 border-t-[#B85042] rounded-full animate-spin" />
             ) : (
               <svg className="h-5 w-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -93,15 +94,15 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex-1 h-px bg-white/10" />
-            <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">or</span>
-            <div className="flex-1 h-px bg-white/10" />
+            <div className="flex-1 h-px bg-slate-200" />
+            <span className="text-slate-400 text-sm font-semibold uppercase tracking-wider">or</span>
+            <div className="flex-1 h-px bg-slate-200" />
           </div>
 
           {/* Email form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
+              <label className="text-sm font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">
                 Email Address
               </label>
               <input
@@ -112,15 +113,15 @@ export default function LoginPage() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 min-h-[48px] text-[#0B192C] text-base placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#B85042]/30 focus:border-[#B85042] transition"
               />
             </div>
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                <label className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
                   Password
                 </label>
-                <Link to="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 font-semibold transition">
+                <Link to="/forgot-password" className="text-sm text-[#B85042] hover:text-[#9d4438] font-semibold transition">
                   Forgot password?
                 </Link>
               </div>
@@ -132,33 +133,33 @@ export default function LoginPage() {
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full bg-white border border-slate-200 rounded-xl px-4 min-h-[48px] text-[#0B192C] text-base placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#B85042]/30 focus:border-[#B85042] transition"
               />
             </div>
             <button
               type="submit"
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-lg shadow-blue-600/30 disabled:opacity-60 active:scale-95 cursor-pointer mt-1"
+              className="w-full bg-[#B85042] hover:bg-[#9d4438] text-white font-bold min-h-[48px] rounded-xl text-base transition shadow-sm disabled:opacity-60 active:scale-[0.98] cursor-pointer mt-1"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Signing in…
                 </span>
               ) : "Sign In"}
             </button>
           </form>
 
-          <p className="text-center text-slate-400 text-sm mt-6">
+          <p className="text-center text-slate-500 text-base mt-6">
             New to NariSetu?{" "}
-            <Link to="/register" className="text-blue-400 hover:text-blue-300 font-semibold transition">
+            <Link to="/register" className="text-[#B85042] hover:text-[#9d4438] font-semibold transition">
               Create account
             </Link>
           </p>
         </div>
 
-        <p className="text-center text-slate-600 text-xs mt-6">
-          Designed with women entrepreneurs in mind. 🌸
+        <p className="text-center text-slate-400 text-sm mt-6">
+          Designed with women entrepreneurs in mind.
         </p>
       </div>
     </div>

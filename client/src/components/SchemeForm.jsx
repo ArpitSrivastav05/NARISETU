@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UserSearch, User, MapPin, Briefcase, Settings, Search, Loader2, ChevronDown } from "lucide-react";
 
 /* ══════════════════════════════════════════════════════
    NariSetu — Eligibility Form Component
@@ -42,8 +43,6 @@ const STATES = [
   { value: "dadra_nagar_haveli", label: "Dadra & Nagar Haveli" },
   { value: "lakshadweep", label: "Lakshadweep" },
 ];
-
-
 
 const CASTES = [
   { value: "general", label: "General" },
@@ -94,14 +93,13 @@ const BUSINESS_CATEGORIES = [
 ];
 
 // ── Reusable input field wrapper ─────────────────────────
-function FieldGroup({ label, htmlFor, icon, children }) {
+function FieldGroup({ label, htmlFor, children }) {
   return (
     <div className="space-y-1.5">
       <label
         htmlFor={htmlFor}
-        className="flex items-center gap-1.5 text-sm font-semibold text-navy-700"
+        className="flex items-center gap-1.5 text-base font-semibold text-[#0B192C]"
       >
-        <span className="text-base">{icon}</span>
         {label}
       </label>
       {children}
@@ -110,10 +108,10 @@ function FieldGroup({ label, htmlFor, icon, children }) {
 }
 
 const inputClasses =
-  "w-full rounded-xl border border-navy-200 bg-white px-4 py-3 text-sm text-navy-800 shadow-sm transition-all duration-200 placeholder:text-navy-300 hover:border-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-200 focus:outline-none";
+  "w-full rounded-xl border border-slate-200 bg-white px-4 min-h-[48px] text-base text-[#0B192C] shadow-sm transition-all duration-200 placeholder:text-slate-400 hover:border-slate-300 focus:border-[#B85042] focus:ring-2 focus:ring-[#B85042]/20 focus:outline-none";
 
 const selectClasses =
-  "w-full appearance-none rounded-xl border border-navy-200 bg-white px-4 py-3 pr-10 text-sm text-navy-800 shadow-sm transition-all duration-200 hover:border-navy-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-200 focus:outline-none cursor-pointer";
+  "w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 min-h-[48px] pr-10 text-base text-[#0B192C] shadow-sm transition-all duration-200 hover:border-slate-300 focus:border-[#B85042] focus:ring-2 focus:ring-[#B85042]/20 focus:outline-none cursor-pointer";
 
 export default function SchemeForm({ onSubmit, isLoading }) {
   const [form, setForm] = useState({
@@ -186,39 +184,47 @@ export default function SchemeForm({ onSubmit, isLoading }) {
           </option>
         ))}
       </select>
-      {/* Chevron icon */}
-      <svg
-        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-navy-400"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <ChevronDown
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
         strokeWidth={2}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-      </svg>
+      />
+    </div>
+  );
+
+  // Section header component
+  const SectionHeader = ({ icon: Icon, title }) => (
+    <div className="flex items-center gap-3 border-b border-slate-100 pb-3">
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#B85042]/10 text-[#B85042]">
+        <Icon className="h-4 w-4" strokeWidth={2.5} />
+      </div>
+      <h3 className="text-sm font-bold tracking-wide text-slate-500 uppercase">
+        {title}
+      </h3>
     </div>
   );
 
   return (
     <form onSubmit={handleSubmit} id="eligibility-form" className="space-y-8">
       {/* ── Header ───────────────────────────────────── */}
-      <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-navy-500 to-navy-700 shadow-lg shadow-navy-500/30">
-          <svg className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-          </svg>
+      <div className="text-left">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#B85042]/10 text-[#B85042]">
+            <UserSearch className="h-6 w-6" strokeWidth={2.5} />
+          </div>
+          <div className="pt-0.5">
+            <h2 className="text-2xl font-bold text-[#0B192C]">
+              Check Your Eligibility
+            </h2>
+            <p className="mt-1.5 text-base text-slate-500">
+              Fill in your details to discover government schemes tailored for you
+            </p>
+          </div>
         </div>
-        <h2 className="text-2xl font-bold text-navy-800">
-          Check Your Eligibility
-        </h2>
-        <p className="mt-1.5 text-sm text-navy-400">
-          Fill in your details to discover government schemes tailored for you
-        </p>
-        <div className="mt-3 text-left bg-blue-50/50 p-4 rounded-xl border border-blue-100">
-          <h4 className="text-sm font-bold text-blue-900 mb-1 flex items-center gap-2">
-            ℹ️ How Scheme Matching Works
+        <div className="text-left bg-[#B85042]/5 p-4 rounded-xl border border-[#B85042]/15">
+          <h4 className="text-base font-bold text-[#0B192C] mb-1 flex items-center gap-2">
+            <Settings className="h-4 w-4 text-[#B85042]" strokeWidth={2.5} /> How Scheme Matching Works
           </h4>
-          <p className="text-xs text-blue-800 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             Government schemes often have mandatory eligibility requirements such as gender, income, state, or age. Our Eligibility Engine follows official rules exactly. Women-specific schemes are only shown to eligible users. Open schemes are shown to everyone who qualifies.
           </p>
         </div>
@@ -226,15 +232,10 @@ export default function SchemeForm({ onSubmit, isLoading }) {
 
       {/* ── Personal Details Section ─────────────────── */}
       <div className="space-y-5">
-        <div className="flex items-center gap-2 border-b border-navy-100 pb-2">
-          <span className="text-saffron-500 text-lg">👤</span>
-          <h3 className="text-sm font-bold tracking-wide text-navy-600 uppercase">
-            Personal Details
-          </h3>
-        </div>
+        <SectionHeader icon={User} title="Personal Details" />
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <FieldGroup label="Full Name" htmlFor="name" icon="✦">
+          <FieldGroup label="Full Name" htmlFor="name">
             <input
               id="name"
               name="name"
@@ -246,7 +247,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Age" htmlFor="age" icon="🎂">
+          <FieldGroup label="Age" htmlFor="age">
             <input
               id="age"
               name="age"
@@ -261,7 +262,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Gender" htmlFor="gender" icon="🧑">
+          <FieldGroup label="Gender" htmlFor="gender">
             <SelectField
               name="gender"
               options={[
@@ -274,7 +275,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Marital Status" htmlFor="marital_status" icon="💍">
+          <FieldGroup label="Marital Status" htmlFor="marital_status">
             <SelectField
               name="marital_status"
               options={MARITAL_STATUSES}
@@ -286,15 +287,10 @@ export default function SchemeForm({ onSubmit, isLoading }) {
 
       {/* ── Location & Social ────────────────────────── */}
       <div className="space-y-5">
-        <div className="flex items-center gap-2 border-b border-navy-100 pb-2">
-          <span className="text-saffron-500 text-lg">📍</span>
-          <h3 className="text-sm font-bold tracking-wide text-navy-600 uppercase">
-            Location & Social Category
-          </h3>
-        </div>
+        <SectionHeader icon={MapPin} title="Location & Social Category" />
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <FieldGroup label="State / UT" htmlFor="state" icon="🗺️">
+          <FieldGroup label="State / UT" htmlFor="state">
             <SelectField
               name="state"
               options={STATES}
@@ -303,7 +299,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Caste Category" htmlFor="caste_category" icon="🏷️">
+          <FieldGroup label="Caste Category" htmlFor="caste_category">
             <SelectField
               name="caste_category"
               options={CASTES}
@@ -312,7 +308,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Residence Type" htmlFor="residence_type" icon="🏠">
+          <FieldGroup label="Residence Type" htmlFor="residence_type">
             <SelectField
               name="residence_type"
               options={RESIDENCE_TYPES}
@@ -325,15 +321,10 @@ export default function SchemeForm({ onSubmit, isLoading }) {
 
       {/* ── Financial & Employment ───────────────────── */}
       <div className="space-y-5">
-        <div className="flex items-center gap-2 border-b border-navy-100 pb-2">
-          <span className="text-saffron-500 text-lg">💼</span>
-          <h3 className="text-sm font-bold tracking-wide text-navy-600 uppercase">
-            Financial & Employment
-          </h3>
-        </div>
+        <SectionHeader icon={Briefcase} title="Financial & Employment" />
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <FieldGroup label="Annual Income (₹)" htmlFor="annual_income" icon="💰">
+          <FieldGroup label="Annual Income (₹)" htmlFor="annual_income">
             <input
               id="annual_income"
               name="annual_income"
@@ -347,7 +338,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Employment Type" htmlFor="employment_type" icon="🧑‍💻">
+          <FieldGroup label="Employment Type" htmlFor="employment_type">
             <SelectField
               name="employment_type"
               options={EMPLOYMENT_TYPES}
@@ -356,7 +347,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Education Level" htmlFor="education_level" icon="🎓">
+          <FieldGroup label="Education Level" htmlFor="education_level">
             <SelectField
               name="education_level"
               options={EDUCATION_LEVELS}
@@ -365,7 +356,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
             />
           </FieldGroup>
 
-          <FieldGroup label="Business Category" htmlFor="business_category" icon="🏪">
+          <FieldGroup label="Business Category" htmlFor="business_category">
             <SelectField
               name="business_category"
               options={BUSINESS_CATEGORIES}
@@ -377,18 +368,13 @@ export default function SchemeForm({ onSubmit, isLoading }) {
 
       {/* ── Toggles ──────────────────────────────────── */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 border-b border-navy-100 pb-2">
-          <span className="text-saffron-500 text-lg">⚙️</span>
-          <h3 className="text-sm font-bold tracking-wide text-navy-600 uppercase">
-            Additional Information
-          </h3>
-        </div>
+        <SectionHeader icon={Settings} title="Additional Information" />
 
         <div className="flex flex-wrap gap-6">
           {/* BPL toggle */}
           <label
             htmlFor="is_bpl"
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-navy-100 bg-navy-50/50 px-5 py-3.5 transition-all hover:border-navy-200 hover:bg-navy-50 select-none"
+            className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-5 min-h-[48px] py-3.5 transition-all hover:border-slate-300 hover:bg-slate-100 select-none"
           >
             <input
               id="is_bpl"
@@ -396,13 +382,13 @@ export default function SchemeForm({ onSubmit, isLoading }) {
               type="checkbox"
               checked={form.is_bpl}
               onChange={handleChange}
-              className="h-4.5 w-4.5 rounded border-navy-300 text-navy-600 focus:ring-navy-500 accent-navy-600"
+              className="h-4.5 w-4.5 rounded border-slate-300 text-[#B85042] focus:ring-[#B85042] accent-[#B85042]"
             />
             <div>
-              <span className="text-sm font-semibold text-navy-700">
+              <span className="text-base font-semibold text-[#0B192C]">
                 Below Poverty Line (BPL)
               </span>
-              <p className="text-xs text-navy-400">
+              <p className="text-sm text-slate-500">
                 Do you hold a BPL card?
               </p>
             </div>
@@ -411,7 +397,7 @@ export default function SchemeForm({ onSubmit, isLoading }) {
           {/* Disability toggle */}
           <label
             htmlFor="disability_status"
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-navy-100 bg-navy-50/50 px-5 py-3.5 transition-all hover:border-navy-200 hover:bg-navy-50 select-none"
+            className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-5 min-h-[48px] py-3.5 transition-all hover:border-slate-300 hover:bg-slate-100 select-none"
           >
             <input
               id="disability_status"
@@ -419,13 +405,13 @@ export default function SchemeForm({ onSubmit, isLoading }) {
               type="checkbox"
               checked={form.disability_status}
               onChange={handleChange}
-              className="h-4.5 w-4.5 rounded border-navy-300 text-navy-600 focus:ring-navy-500 accent-navy-600"
+              className="h-4.5 w-4.5 rounded border-slate-300 text-[#B85042] focus:ring-[#B85042] accent-[#B85042]"
             />
             <div>
-              <span className="text-sm font-semibold text-navy-700">
+              <span className="text-base font-semibold text-[#0B192C]">
                 Person with Disability (PwD)
               </span>
-              <p className="text-xs text-navy-400">
+              <p className="text-sm text-slate-500">
                 Do you have a disability certificate?
               </p>
             </div>
@@ -438,39 +424,17 @@ export default function SchemeForm({ onSubmit, isLoading }) {
         id="submit-btn"
         type="submit"
         disabled={isLoading}
-        className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-navy-600 to-navy-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-navy-600/30 transition-all duration-300 hover:from-navy-500 hover:to-navy-600 hover:shadow-xl hover:shadow-navy-600/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-lg cursor-pointer"
+        className="w-full min-h-[48px] rounded-xl bg-[#B85042] hover:bg-[#9d4438] px-8 py-4 text-base font-bold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 cursor-pointer"
       >
-        {/* Shimmer effect on hover */}
-        <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-        <span className="relative flex items-center justify-center gap-2.5">
+        <span className="flex items-center justify-center gap-2.5">
           {isLoading ? (
             <>
-              <svg
-                className="h-5 w-5 animate-spin"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                />
-              </svg>
+              <Loader2 className="h-5 w-5 animate-spin" />
               Searching Schemes…
             </>
           ) : (
             <>
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-              </svg>
+              <Search className="h-5 w-5" strokeWidth={2.5} />
               Find Eligible Schemes
             </>
           )}

@@ -6,18 +6,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 text-slate-300 py-16 border-t border-slate-900">
+    <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
 
           {/* Brand */}
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-8 h-8 rounded-lg bg-[#B85042] flex items-center justify-center text-white font-bold text-lg">
                 N
               </div>
               <span className="text-xl font-bold tracking-tight text-white">
-                NariSetu<span className="text-purple-500">.</span>
+                NariSetu<span className="text-[#B85042]">.</span>
               </span>
             </Link>
             <p className="text-sm text-slate-500 mb-6 leading-relaxed">
@@ -38,32 +38,32 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Product</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#features" className="hover:text-purple-400 transition-colors">Features</a></li>
-              <li><a href="#how-it-works" className="hover:text-purple-400 transition-colors">How it works</a></li>
-              <li><a href="#impact" className="hover:text-purple-400 transition-colors">Impact</a></li>
-              <li><Link to="/login" className="hover:text-purple-400 transition-colors">Login</Link></li>
+              <li><a href="#features" className="hover:text-[#B85042] transition-colors">Features</a></li>
+              <li><a href="#how-it-works" className="hover:text-[#B85042] transition-colors">How it works</a></li>
+              <li><a href="#impact" className="hover:text-[#B85042] transition-colors">Impact</a></li>
+              <li><Link to="/login" className="hover:text-[#B85042] transition-colors">Login</Link></li>
             </ul>
           </div>
 
           {/* Legal */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Legal</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-purple-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-purple-400 transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-purple-400 transition-colors">Cookie Policy</a></li>
+              <li><a href="#" className="hover:text-[#B85042] transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-[#B85042] transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-[#B85042] transition-colors">Cookie Policy</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contact</h4>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Mail size={16} className="text-slate-500" />
-                <a href="mailto:hello@narisetu.in" className="hover:text-purple-400 transition-colors">hello@narisetu.in</a>
+                <a href="mailto:hello@narisetu.in" className="hover:text-[#B85042] transition-colors">hello@narisetu.in</a>
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-4 h-4 flex items-center justify-center">
@@ -76,7 +76,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-slate-900 text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {currentYear} NariSetu. All rights reserved.</p>
           <p>Developed by Arpit Srivastav</p>
         </div>

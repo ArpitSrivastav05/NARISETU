@@ -7,10 +7,10 @@ export default function Certificate({ course, certificateId, dateCompleted }) {
   const userName = currentUser?.displayName || userProfile?.name || "Entrepreneur";
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden text-center p-12 relative max-w-2xl mx-auto">
+    <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden text-center p-12 relative max-w-2xl mx-auto">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-purple-600 via-teal-500 to-amber-500" />
-      <div className="absolute top-4 left-4 text-purple-200 opacity-20">
+      <div className="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-[#B85042] via-teal-500 to-amber-500" />
+      <div className="absolute top-4 left-4 text-[#B85042]/20 opacity-20">
         <Award size={120} />
       </div>
       <div className="absolute bottom-4 right-4 text-teal-200 opacity-20">
@@ -28,7 +28,7 @@ export default function Certificate({ course, certificateId, dateCompleted }) {
         </h1>
         
         <p className="text-slate-600 mb-4">has successfully completed the course</p>
-        <h2 className="text-2xl font-bold text-purple-700 mb-10">
+        <h2 className="text-2xl font-bold text-[#B85042] mb-10">
           {course.title}
         </h2>
         

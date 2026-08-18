@@ -61,7 +61,7 @@ export default function LearningHubPage() {
   };
 
   if (isLoading) {
-    return <div className="flex h-full items-center justify-center"><div className="w-8 h-8 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin" /></div>;
+    return <div className="flex h-full items-center justify-center"><div className="w-8 h-8 border-4 border-[#B85042]/20 border-t-[#B85042] rounded-full animate-spin" /></div>;
   }
 
   // Flatten lessons for easy navigation within the active course
